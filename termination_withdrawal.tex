@@ -1,0 +1,694 @@
+\documentclass[a4paper]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+    \setmainfont[]{EB Garamond}
+    \setmonofont[Mapping=tex-ansi]{Fira Code}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Profile Analysis of Students whose Scholarship was Withdrawn or Terminated between 2013 and 2018},
+            pdfauthor={Joseph S. Tabadero, Jr.},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Profile Analysis of Students whose Scholarship was Withdrawn or
+Terminated between 2013 and 2018}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Joseph S. Tabadero,
+Jr.\thanks{Philippine Science High School-CAR Campus, on detail at the OED}}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{\today}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+
+\usepackage{draftwatermark}
+
+\begin{document}
+\maketitle
+
+\hypertarget{executive-summary}{%
+\subsection{Executive Summary}\label{executive-summary}}
+
+From initial observations, we have the following observations:
+
+\hypertarget{on-termination-of-scholarships}{%
+\subsubsection{On termination of
+scholarships}\label{on-termination-of-scholarships}}
+
+\begin{itemize}
+\tightlist
+\item
+  There have been 174 scholarships terminated during the school years
+  between 2013 and 2018 (TableS \ref{tab:1} and \ref{reasons}).
+\item
+  The leading cause of termination of scholarship is difficulty in
+  academics (138) for the school years covering 2013-2018 (Table
+  \ref{tab:1}). This reason had a downward trend between 2013 and 2015
+  but shifted to an increasing trend from 2015 onwards (Table
+  \ref{tab:1} and Fig. \ref{trend_year} ). This contributed largely to
+  the trend of scholarship terminations (see Total column of Table
+  \ref{tab:1} and Fig. \ref{trend}).
+\item
+  The frequency of behavioral reasons for termination has been
+  increasing since 2015. It is not apparent from the data if these
+  behavioral problems are due to mental health problems.
+\item
+  Males (137) lead females (37) in terms of scholarship terminated
+  (Table \ref{tab:2} and Fig. \ref{gender}). In fact, in terms of
+  termination of scholarship, the number of male students has
+  consistently been greater than the number of female students since
+  2013 (Table \ref{tab:2} and Fig. \ref{gender_year}). This trend is
+  consistent among campuses (see Table \ref{tab:5}). Males considerably
+  outnumber females in terms of termination of scholarship due to
+  academic and behavioral concerns vis-a-vis code of conduct (Table
+  \ref{tab:7}).
+\item
+  Interns (95) outnumber externs (79) whose scholarship was terminated
+  (Table \ref{residence_year} and Fig. \ref{residence}). This is also
+  consistent throughout the year except for 2014 and 2018 when the
+  numbers (12, and 22, respectively) of interns and externs whose
+  scholarships were terminated are the same. This trend varies among
+  campuses (see Table \ref{tab:4}).
+\item
+  Interns (95) outnumber interns (79) in terms of scholarships
+  terminated. In particular, interns (80) outnumber externs (58) whose
+  scholarships were terminated because of poor academic performance, not
+  yet taking the total population of interns and externs into
+  consideration. Interns whose scholarships were terminated due to
+  violation of code of conduct almost equal that of their extern
+  counterpartrs, again, not yet taking the respective total populations
+  of interns and externs into consideration\footnote{Considering for the
+    time being that we still do not have the data on the population of
+    interns and externs that the number of interns is far less than the
+    number of externs, the proportion of interns with behavioral
+    problems is larger by a large margin than that among the externs.}.'
+\end{itemize}
+
+\hypertarget{on-withdrawal-of-scholarships}{%
+\subsubsection{On withdrawal of
+scholarships}\label{on-withdrawal-of-scholarships}}
+
+\begin{itemize}
+\tightlist
+\item
+  Since 2013, the number of withdrawals of scholarship (90) is less than
+  the number of terminations of scholarship (174).
+\item
+  There have been 90 scholarship withdrawals since 2013 (Table
+  \ref{tab:1}). Although the cases of withdrawals havce been less in the
+  past two years compared to the years 2015 and 2016, when the number of
+  withdrawals achieved its peak (27).
+\item
+  Mental health problems have been the main cause of withdrawal with a
+  total of 26 cases, followed closely by migration with a total of 24
+  cases (Table \ref{tab:1} and Fig. \ref{reasons}). While migration has
+  been the primary reason for withdrawal between 2015 and 2016, it has
+  been overtaken by mental health problems by 2017 (Fig.
+  \ref{trend_year}). This can be attributed partly to increased
+  awareness about mental health issues and detection of mental health
+  problems.
+\item
+  The females (50) outnumber males (40) in terms of withdrawal of
+  scholarships (Table \ref{tab:2} and Fig. \ref{gender}). This trend
+  varies only slightly. I.e., the males outnumber the females in 2013
+  and 2017 (Table \ref{tab:2} and Fig. \ref{gender_year}). This is also
+  the trend among campuses (Table \ref{tab:5}). The number of reported
+  females with mental health concerns, migration, and other problems
+  that are combinations mainly of mental health in nature outnummber the
+  males (Table \ref{tab:7})\footnote{While this is the case, since the
+    reasons behind the academic difficulties and violations of the code
+    of conduct that resulted to the termination of scholarships are not
+    known, we can easily fall into the trap of assuming that mental
+    health problems are more frequent among female scholars than among
+    male scholars.}.
+\end{itemize}
+
+\begin{itemize}
+\tightlist
+\item
+  Table \ref{tab:4} also shows that interns (50) who withdrew their
+  scholarships outnumber externs (40). This varies slightly among
+  campuses, most notable of which is Main Campus.
+\item
+  Interns (50) who had their scholarships withdrawn also outnumber
+  externs (40) who had their scholarships withdrawn \footnote{Again,
+    taking the respective population of interns and externs, the number
+    of interns who had their scholarships withdrawn is proportionately
+    larger than that of the number of externs who had their scholarships
+    similarly withdrawn.}, \footnote{Additional data on the population
+    of interns and externs for both males and females have to be
+    acquired in order to quantify this proportion.}. In particular, the
+  number of interns who had mental health issues as reason for
+  withdrawal is proportionately larger than the number of their extern
+  counterparts\footnote{Additional data on the population of interns and
+    externs for both males and females have to be acquired in order to
+    quantify this proportion.}. Migration is also more common among
+  interns (14) than externs (10).
+\end{itemize}
+
+\hypertarget{hypotheses}{%
+\subsection{Hypotheses}\label{hypotheses}}
+
+We have the following hypotheses arising from our observations relative
+to our concern to address the mental health issues among our students:
+
+\begin{itemize}
+\item
+  The likelihood of having a student's scholarship terminated due to
+  gender is higher among males than in females. More specifically:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The likelihood of having a student's scholarship terminated due to
+    violation of the code of conduct is higher among males than among
+    females.
+  \item
+    The likelihood of having a student's scholarship terminated due to
+    difficulties in academics is higher among males than among females.
+  \end{itemize}
+\item
+  The likelihood of having a student's scholarship withdrawn due to
+  gender is higher among females than in males.
+\item
+  The likelihood of having a student's scholarship terminated is higher
+  among interns than among externs.
+\item
+  The likelihood of having a student's scholarship withdrawn is higher
+  among interns than among externs.
+\end{itemize}
+
+\hypertarget{statistical-tests}{%
+\subsection{Statistical Tests}\label{statistical-tests}}
+
+To test the above hypotheses, Chi-Square Tests of Association may be
+used. However, the tests of association will not be able to put the
+effect of co-variation into consideration. Ordinal regression or
+analysis of co-variance may be used to see the relationship between the
+reasons for termination/withdrawal and other variables like gender,
+residence (intern/extern) and scholarship category raw score. However,
+there might not be enough observations that would give us meaningful
+results.
+
+\hypertarget{other-data-needs}{%
+\subsection{Other data needs}\label{other-data-needs}}
+
+We can gain more insight with more data. More specifically, as is
+evident from the foregoing observations and notes, we would need:
+
+\begin{itemize}
+\tightlist
+\item
+  the population of interns by gender, year, and campus;
+\item
+  the student population by gender, year, and campus; and,
+\item
+  the raw scholarship category score of each case of
+  termination/withdrawal, which have been submitted, albeit
+  incompletely.
+\end{itemize}
+
+\hypertarget{recommendations}{%
+\subsection{Recommendations}\label{recommendations}}
+
+Attached with this report is the draft memo requiring the submission of
+the data as specified in the preceding section, and the MS Word and MS
+Excel forms for encoding the data pertaining to the first two items
+above.
+
+Ideally, we should also have the profile of students whose scholarship
+were not terminated/withdrawn, in order for us to tackle classification
+problems of determining the tendency for termination/withdrawal of
+scholarship. But this is not an immediate concern.
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-5}\label{tab:1}Frequency Distribution of Scholarship Termination/Withdrawal by Year and Reason}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{lrrrrrrrrrr}
+\toprule
+Year & Academic & Attendance & Behavior & Combination & \makecell[c]{Family\\Problem} & Medical & \makecell[c]{Mental\\Health} & Migration & Others & Total\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Termination}}\\
+\hspace{1em}2013 & 41 & 0 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 43\\
+\hspace{1em}2014 & 18 & 0 & 1 & 2 & 0 & 1 & 1 & 0 & 1 & 24\\
+\hspace{1em}2015 & 11 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 12\\
+\hspace{1em}2016 & 17 & 3 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 22\\
+\hspace{1em}2017 & 20 & 2 & 4 & 2 & 0 & 0 & 0 & 0 & 1 & 29\\
+\hspace{1em}2018 & 31 & 0 & 10 & 3 & 0 & 0 & 0 & 0 & 0 & 44\\
+\hspace{1em}Total & 138 & 5 & 17 & 10 & 0 & 1 & 1 & 0 & 2 & 174\\
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Withdrawal}}\\
+\hspace{1em}2013 & 0 & 0 & 1 & 0 & 0 & 2 & 3 & 1 & 0 & 7\\
+\hspace{1em}2014 & 0 & 0 & 0 & 0 & 1 & 4 & 1 & 0 & 5 & 11\\
+\hspace{1em}2015 & 0 & 0 & 0 & 3 & 1 & 2 & 2 & 10 & 3 & 21\\
+\hspace{1em}2016 & 1 & 0 & 1 & 3 & 2 & 3 & 7 & 8 & 2 & 27\\
+\hspace{1em}2017 & 0 & 0 & 0 & 1 & 1 & 0 & 4 & 4 & 1 & 11\\
+\hspace{1em}2018 & 0 & 0 & 0 & 2 & 0 & 1 & 9 & 1 & 0 & 13\\
+\hspace{1em}Total & 1 & 0 & 2 & 9 & 5 & 12 & 26 & 24 & 11 & 90\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{termination_withdrawal_files/figure-latex/trend_year-1} 
+
+}
+
+\caption{\label{trend_year}Distribution of Termination/Withdrawal of Scholarships by Reasons and Year}\label{fig:trend_year}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{termination_withdrawal_files/figure-latex/trend-1} 
+
+}
+
+\caption{\label{trend}Distribution of Termination/Withdrawal of Scholarships by Reasons Aggregated by Year}\label{fig:trend}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{termination_withdrawal_files/figure-latex/reasons-1} 
+
+}
+
+\caption{\label{reasons}Distribution of Termination/Withdrawal of Scholarships by Reasons}\label{fig:reasons}
+\end{figure}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-6}\label{tab:2}Frequency Distribution of Scholarship Termination/Withdrawal by Year and Gender}
+\centering
+\begin{tabular}[t]{lrrrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{3}{c}{Termination} & \multicolumn{3}{c}{Withdrawal} \\
+\cmidrule(l{2pt}r{2pt}){2-4} \cmidrule(l{2pt}r{2pt}){5-7}
+Year & F & M & Total & F & M & Total\\
+\midrule
+2013 & 10 & 33 & 43 & 3 & 4 & 7\\
+2014 & 5 & 19 & 24 & 6 & 5 & 11\\
+2015 & 1 & 11 & 12 & 12 & 9 & 21\\
+2016 & 6 & 16 & 22 & 14 & 13 & 27\\
+2017 & 7 & 22 & 29 & 4 & 7 & 11\\
+\addlinespace
+2018 & 8 & 36 & 44 & 11 & 2 & 13\\
+Total & 37 & 137 & 174 & 50 & 40 & 90\\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{termination_withdrawal_files/figure-latex/gender-1} 
+
+}
+
+\caption{\label{gender}Distribution of Termination/Withdrawal of Scholarships by Gender}\label{fig:gender}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{termination_withdrawal_files/figure-latex/gender_year-1} 
+
+}
+
+\caption{\label{gender_year}Distribution of Termination/Withdrawal of Scholarships by Year and Gender}\label{fig:gender_year}
+\end{figure}
+
+\begin{table}
+
+\caption{\label{tab:residence_year}\label{residence_year}Frequency Distribution of Scholarship Termination/Withdrawal by Year and Residence}
+\centering
+\begin{tabular}[t]{lrrrrrr}
+\toprule
+\multicolumn{1}{c}{ } & \multicolumn{3}{c}{Termination} & \multicolumn{3}{c}{Withdrawal} \\
+\cmidrule(l{2pt}r{2pt}){2-4} \cmidrule(l{2pt}r{2pt}){5-7}
+Year & Extern & Intern & Total & Extern & Intern & Total\\
+\midrule
+2013 & 18 & 25 & 43 & 3 & 4 & 7\\
+2014 & 12 & 12 & 24 & 5 & 6 & 11\\
+2015 & 5 & 7 & 12 & 7 & 14 & 21\\
+2016 & 8 & 14 & 22 & 11 & 16 & 27\\
+2017 & 14 & 15 & 29 & 6 & 5 & 11\\
+\addlinespace
+2018 & 22 & 22 & 44 & 8 & 5 & 13\\
+Total & 79 & 95 & 174 & 40 & 50 & 90\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{termination_withdrawal_files/figure-latex/residence-1} 
+
+}
+
+\caption{\label{residence}Distribution of Termination/Withdrawal of Scholarships by Residence}\label{fig:residence}
+\end{figure}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.6\linewidth]{termination_withdrawal_files/figure-latex/residence_year2-1} 
+
+}
+
+\caption{\label{residence_year2}Distribution of Termination/Withdrawal of Scholarships by Residence and Year}\label{fig:residence_year2}
+\end{figure}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-9}\label{tab:5}Distribution of Termination/Withdrawal of Scholarships by Year, Campus and Gender}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{lrrrrrrrrrrrrrrrrr}
+\toprule
+Year & BRC & CALABARZON & CARC & CLC & CMC & CRC & CVC & CVISC & EVC & IRC & MC & MRC & SMC & SRC & WVC & ZRC & Total\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{18}{l}{\textbf{Termination}}\\
+\addlinespace[0.3em]
+\multicolumn{18}{l}{\textbf{Female}}\\
+\hspace{1em}\hspace{1em}2013 & 0 & 0 & 0 & 0 & 1 & 0 & 2 & 2 & 2 & 0 & 3 & 0 & 0 & 0 & 0 & 0 & 10\\
+\hspace{1em}\hspace{1em}2014 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 5\\
+\hspace{1em}\hspace{1em}2015 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
+\hspace{1em}\hspace{1em}2016 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 6\\
+\hspace{1em}\hspace{1em}2017 & 0 & 0 & 0 & 0 & 1 & 0 & 2 & 0 & 0 & 0 & 3 & 0 & 0 & 0 & 1 & 0 & 7\\
+\hspace{1em}\hspace{1em}2018 & 2 & 0 & 1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 8\\
+\hspace{1em}\hspace{1em}Total & 2 & 0 & 3 & 3 & 3 & 0 & 5 & 4 & 4 & 1 & 9 & 0 & 1 & 0 & 2 & 0 & 37\\
+\addlinespace[0.3em]
+\multicolumn{18}{l}{\textbf{Male}}\\
+\hspace{1em}\hspace{1em}2013 & 0 & 0 & 0 & 0 & 3 & 0 & 8 & 3 & 7 & 1 & 8 & 0 & 2 & 0 & 1 & 0 & 33\\
+\hspace{1em}\hspace{1em}2014 & 0 & 0 & 3 & 1 & 0 & 0 & 1 & 1 & 2 & 3 & 4 & 0 & 3 & 0 & 1 & 0 & 19\\
+\hspace{1em}\hspace{1em}2015 & 0 & 0 & 0 & 1 & 1 & 0 & 3 & 0 & 0 & 1 & 1 & 0 & 2 & 1 & 1 & 0 & 11\\
+\hspace{1em}\hspace{1em}2016 & 1 & 1 & 1 & 0 & 0 & 0 & 3 & 4 & 0 & 0 & 5 & 0 & 0 & 0 & 1 & 0 & 16\\
+\hspace{1em}\hspace{1em}2017 & 0 & 0 & 1 & 1 & 2 & 0 & 4 & 0 & 4 & 2 & 6 & 0 & 0 & 0 & 2 & 0 & 22\\
+\hspace{1em}\hspace{1em}2018 & 1 & 1 & 1 & 5 & 2 & 1 & 2 & 0 & 8 & 4 & 6 & 1 & 1 & 0 & 3 & 0 & 36\\
+\hspace{1em}\hspace{1em}Total & 2 & 2 & 6 & 8 & 8 & 1 & 21 & 8 & 21 & 11 & 30 & 1 & 8 & 1 & 9 & 0 & 137\\
+\addlinespace[0.3em]
+\multicolumn{18}{l}{\textbf{Withdrawal}}\\
+\addlinespace[0.3em]
+\multicolumn{18}{l}{\textbf{Female}}\\
+\hspace{1em}\hspace{1em}2013 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 2 & 0 & 0 & 0 & 3\\
+\hspace{1em}\hspace{1em}2014 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 2 & 1 & 1 & 0 & 0 & 1 & 0 & 0 & 6\\
+\hspace{1em}\hspace{1em}2015 & 0 & 0 & 2 & 0 & 1 & 1 & 0 & 3 & 1 & 1 & 0 & 0 & 0 & 1 & 2 & 0 & 12\\
+\hspace{1em}\hspace{1em}2016 & 0 & 1 & 1 & 3 & 0 & 0 & 0 & 2 & 0 & 2 & 3 & 0 & 0 & 0 & 1 & 1 & 14\\
+\hspace{1em}\hspace{1em}2017 & 0 & 0 & 0 & 2 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 4\\
+\hspace{1em}\hspace{1em}2018 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 2 & 0 & 3 & 0 & 3 & 0 & 11\\
+\hspace{1em}\hspace{1em}Total & 0 & 1 & 3 & 6 & 3 & 1 & 0 & 5 & 4 & 5 & 8 & 0 & 5 & 2 & 6 & 1 & 50\\
+\addlinespace[0.3em]
+\multicolumn{18}{l}{\textbf{Male}}\\
+\hspace{1em}\hspace{1em}2013 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 4\\
+\hspace{1em}\hspace{1em}2014 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 3 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 5\\
+\hspace{1em}\hspace{1em}2015 & 1 & 0 & 3 & 0 & 0 & 0 & 1 & 0 & 0 & 2 & 0 & 0 & 1 & 1 & 0 & 0 & 9\\
+\hspace{1em}\hspace{1em}2016 & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 3 & 0 & 1 & 1 & 3 & 0 & 13\\
+\hspace{1em}\hspace{1em}2017 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 7\\
+\hspace{1em}\hspace{1em}2018 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 2\\
+\hspace{1em}\hspace{1em}Total & 2 & 3 & 4 & 1 & 0 & 0 & 3 & 2 & 4 & 4 & 10 & 0 & 2 & 2 & 3 & 0 & 40\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-10}\label{tab:4}Distribution of Termination/Withdrawal of Scholarships by Year, Campus and Residence}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{lrrrrrrrrrrrrrrrrr}
+\toprule
+Year & BRC & CALABARZON & CARC & CLC & CMC & CRC & CVC & CVISC & EVC & IRC & MC & MRC & SMC & SRC & WVC & ZRC & Total\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{18}{l}{\textbf{Termination}}\\
+\addlinespace[0.3em]
+\multicolumn{18}{l}{\textbf{Extern}}\\
+\hspace{1em}\hspace{1em}2013 & 0 & 0 & 0 & 0 & 2 & 0 & 3 & 0 & 5 & 0 & 6 & 0 & 1 & 0 & 1 & 0 & 18\\
+\hspace{1em}\hspace{1em}2014 & 0 & 0 & 2 & 1 & 0 & 0 & 0 & 0 & 2 & 0 & 4 & 0 & 2 & 0 & 1 & 0 & 12\\
+\hspace{1em}\hspace{1em}2015 & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 5\\
+\hspace{1em}\hspace{1em}2016 & 0 & 0 & 2 & 0 & 0 & 0 & 2 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 8\\
+\hspace{1em}\hspace{1em}2017 & 0 & 0 & 1 & 0 & 2 & 0 & 1 & 0 & 3 & 1 & 3 & 0 & 0 & 0 & 3 & 0 & 14\\
+\hspace{1em}\hspace{1em}2018 & 0 & 0 & 2 & 3 & 1 & 1 & 0 & 1 & 6 & 1 & 3 & 1 & 0 & 0 & 3 & 0 & 22\\
+\hspace{1em}\hspace{1em}Total & 0 & 0 & 7 & 5 & 6 & 1 & 7 & 2 & 16 & 2 & 17 & 1 & 5 & 1 & 9 & 0 & 79\\
+\addlinespace[0.3em]
+\multicolumn{18}{l}{\textbf{Intern}}\\
+\hspace{1em}\hspace{1em}2013 & 0 & 0 & 0 & 0 & 2 & 0 & 7 & 5 & 4 & 1 & 5 & 0 & 1 & 0 & 0 & 0 & 25\\
+\hspace{1em}\hspace{1em}2014 & 0 & 0 & 2 & 1 & 0 & 0 & 1 & 1 & 1 & 3 & 2 & 0 & 1 & 0 & 0 & 0 & 12\\
+\hspace{1em}\hspace{1em}2015 & 0 & 0 & 0 & 1 & 0 & 0 & 2 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 7\\
+\hspace{1em}\hspace{1em}2016 & 1 & 1 & 0 & 0 & 1 & 0 & 2 & 4 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 14\\
+\hspace{1em}\hspace{1em}2017 & 0 & 0 & 0 & 1 & 1 & 0 & 5 & 0 & 1 & 1 & 6 & 0 & 0 & 0 & 0 & 0 & 15\\
+\hspace{1em}\hspace{1em}2018 & 3 & 1 & 0 & 3 & 1 & 0 & 2 & 0 & 3 & 4 & 3 & 0 & 1 & 0 & 1 & 0 & 22\\
+\hspace{1em}\hspace{1em}Total & 4 & 2 & 2 & 6 & 5 & 0 & 19 & 10 & 9 & 10 & 22 & 0 & 4 & 0 & 2 & 0 & 95\\
+\addlinespace[0.3em]
+\multicolumn{18}{l}{\textbf{Withdrawal}}\\
+\addlinespace[0.3em]
+\multicolumn{18}{l}{\textbf{Extern}}\\
+\hspace{1em}\hspace{1em}2013 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 3\\
+\hspace{1em}\hspace{1em}2014 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 3 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 5\\
+\hspace{1em}\hspace{1em}2015 & 0 & 0 & 3 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & 7\\
+\hspace{1em}\hspace{1em}2016 & 0 & 1 & 1 & 3 & 0 & 0 & 0 & 0 & 0 & 1 & 3 & 0 & 0 & 0 & 2 & 0 & 11\\
+\hspace{1em}\hspace{1em}2017 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 & 6\\
+\hspace{1em}\hspace{1em}2018 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 2 & 0 & 2 & 0 & 2 & 0 & 8\\
+\hspace{1em}\hspace{1em}Total & 0 & 1 & 4 & 5 & 0 & 1 & 0 & 1 & 3 & 2 & 13 & 0 & 4 & 1 & 5 & 0 & 40\\
+\addlinespace[0.3em]
+\multicolumn{18}{l}{\textbf{Intern}}\\
+\hspace{1em}\hspace{1em}2013 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 4\\
+\hspace{1em}\hspace{1em}2014 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 2 & 2 & 0 & 0 & 0 & 1 & 0 & 0 & 6\\
+\hspace{1em}\hspace{1em}2015 & 1 & 0 & 2 & 0 & 1 & 0 & 1 & 3 & 1 & 3 & 0 & 0 & 0 & 1 & 1 & 0 & 14\\
+\hspace{1em}\hspace{1em}2016 & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 2 & 1 & 2 & 3 & 0 & 1 & 1 & 2 & 1 & 16\\
+\hspace{1em}\hspace{1em}2017 & 0 & 1 & 0 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 5\\
+\hspace{1em}\hspace{1em}2018 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 5\\
+\hspace{1em}\hspace{1em}Total & 2 & 3 & 3 & 2 & 3 & 0 & 3 & 6 & 5 & 7 & 5 & 0 & 3 & 3 & 4 & 1 & 50\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-11}\label{tab:6}Distribution of Reasons for Termination/Withdrawal of Scholarships by Year and Residence}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{lrrrrrrrrrr}
+\toprule
+Year & Academic & Attendance & Behavior & Combination & Family Problem & Medical & Mental Health & Migration & Others & Total\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Termination}}\\
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Extern}}\\
+\hspace{1em}\hspace{1em}2013 & 17 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 18\\
+\hspace{1em}\hspace{1em}2014 & 7 & 0 & 0 & 2 & 0 & 1 & 1 & 0 & 1 & 12\\
+\hspace{1em}\hspace{1em}2015 & 4 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 5\\
+\hspace{1em}\hspace{1em}2016 & 5 & 2 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 8\\
+\hspace{1em}\hspace{1em}2017 & 11 & 0 & 2 & 1 & 0 & 0 & 0 & 0 & 0 & 14\\
+\hspace{1em}\hspace{1em}2018 & 14 & 0 & 6 & 2 & 0 & 0 & 0 & 0 & 0 & 22\\
+\hspace{1em}\hspace{1em}Total & 58 & 2 & 9 & 7 & 0 & 1 & 1 & 0 & 1 & 79\\
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Intern}}\\
+\hspace{1em}\hspace{1em}2013 & 24 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 25\\
+\hspace{1em}\hspace{1em}2014 & 11 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 12\\
+\hspace{1em}\hspace{1em}2015 & 7 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 7\\
+\hspace{1em}\hspace{1em}2016 & 12 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 14\\
+\hspace{1em}\hspace{1em}2017 & 9 & 2 & 2 & 1 & 0 & 0 & 0 & 0 & 1 & 15\\
+\hspace{1em}\hspace{1em}2018 & 17 & 0 & 4 & 1 & 0 & 0 & 0 & 0 & 0 & 22\\
+\hspace{1em}\hspace{1em}Total & 80 & 3 & 8 & 3 & 0 & 0 & 0 & 0 & 1 & 95\\
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Withdrawal}}\\
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Extern}}\\
+\hspace{1em}\hspace{1em}2013 & 0 & 0 & 0 & 0 & 0 & 1 & 2 & 0 & 0 & 3\\
+\hspace{1em}\hspace{1em}2014 & 0 & 0 & 0 & 0 & 0 & 2 & 1 & 0 & 2 & 5\\
+\hspace{1em}\hspace{1em}2015 & 0 & 0 & 0 & 1 & 0 & 2 & 0 & 4 & 0 & 7\\
+\hspace{1em}\hspace{1em}2016 & 0 & 0 & 0 & 0 & 0 & 1 & 5 & 4 & 1 & 11\\
+\hspace{1em}\hspace{1em}2017 & 0 & 0 & 0 & 1 & 0 & 0 & 3 & 1 & 1 & 6\\
+\hspace{1em}\hspace{1em}2018 & 0 & 0 & 0 & 1 & 0 & 1 & 5 & 1 & 0 & 8\\
+\hspace{1em}\hspace{1em}Total & 0 & 0 & 0 & 3 & 0 & 7 & 16 & 10 & 4 & 40\\
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Intern}}\\
+\hspace{1em}\hspace{1em}2013 & 0 & 0 & 1 & 0 & 0 & 1 & 1 & 1 & 0 & 4\\
+\hspace{1em}\hspace{1em}2014 & 0 & 0 & 0 & 0 & 1 & 2 & 0 & 0 & 3 & 6\\
+\hspace{1em}\hspace{1em}2015 & 0 & 0 & 0 & 2 & 1 & 0 & 2 & 6 & 3 & 14\\
+\hspace{1em}\hspace{1em}2016 & 1 & 0 & 1 & 3 & 2 & 2 & 2 & 4 & 1 & 16\\
+\hspace{1em}\hspace{1em}2017 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 3 & 0 & 5\\
+\hspace{1em}\hspace{1em}2018 & 0 & 0 & 0 & 1 & 0 & 0 & 4 & 0 & 0 & 5\\
+\hspace{1em}\hspace{1em}Total & 1 & 0 & 2 & 6 & 5 & 5 & 10 & 14 & 7 & 50\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-12}\label{tab:7}Distribution of Reasons for Termination/Withdrawal of Scholarships by Year and Gender}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{lrrrrrrrrrr}
+\toprule
+Year & Academic & Attendance & Behavior & Combination & Family Problem & Medical & Mental Health & Migration & Others & Total\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Termination}}\\
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Female}}\\
+\hspace{1em}\hspace{1em}2013 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10\\
+\hspace{1em}\hspace{1em}2014 & 2 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 5\\
+\hspace{1em}\hspace{1em}2015 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
+\hspace{1em}\hspace{1em}2016 & 6 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 6\\
+\hspace{1em}\hspace{1em}2017 & 2 & 2 & 1 & 1 & 0 & 0 & 0 & 0 & 1 & 7\\
+\hspace{1em}\hspace{1em}2018 & 6 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 8\\
+\hspace{1em}\hspace{1em}Total & 27 & 2 & 3 & 1 & 0 & 1 & 1 & 0 & 2 & 37\\
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Male}}\\
+\hspace{1em}\hspace{1em}2013 & 31 & 0 & 0 & 2 & 0 & 0 & 0 & 0 & 0 & 33\\
+\hspace{1em}\hspace{1em}2014 & 16 & 0 & 1 & 2 & 0 & 0 & 0 & 0 & 0 & 19\\
+\hspace{1em}\hspace{1em}2015 & 10 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 11\\
+\hspace{1em}\hspace{1em}2016 & 11 & 3 & 2 & 0 & 0 & 0 & 0 & 0 & 0 & 16\\
+\hspace{1em}\hspace{1em}2017 & 18 & 0 & 3 & 1 & 0 & 0 & 0 & 0 & 0 & 22\\
+\hspace{1em}\hspace{1em}2018 & 25 & 0 & 8 & 3 & 0 & 0 & 0 & 0 & 0 & 36\\
+\hspace{1em}\hspace{1em}Total & 111 & 3 & 14 & 9 & 0 & 0 & 0 & 0 & 0 & 137\\
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Withdrawal}}\\
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Female}}\\
+\hspace{1em}\hspace{1em}2013 & 0 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & 3\\
+\hspace{1em}\hspace{1em}2014 & 0 & 0 & 0 & 0 & 0 & 2 & 1 & 0 & 3 & 6\\
+\hspace{1em}\hspace{1em}2015 & 0 & 0 & 0 & 1 & 0 & 2 & 2 & 5 & 2 & 12\\
+\hspace{1em}\hspace{1em}2016 & 1 & 0 & 0 & 2 & 1 & 1 & 4 & 5 & 0 & 14\\
+\hspace{1em}\hspace{1em}2017 & 0 & 0 & 0 & 0 & 0 & 0 & 2 & 2 & 0 & 4\\
+\hspace{1em}\hspace{1em}2018 & 0 & 0 & 0 & 2 & 0 & 1 & 7 & 1 & 0 & 11\\
+\hspace{1em}\hspace{1em}Total & 1 & 0 & 1 & 5 & 1 & 7 & 17 & 13 & 5 & 50\\
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Male}}\\
+\hspace{1em}\hspace{1em}2013 & 0 & 0 & 0 & 0 & 0 & 1 & 2 & 1 & 0 & 4\\
+\hspace{1em}\hspace{1em}2014 & 0 & 0 & 0 & 0 & 1 & 2 & 0 & 0 & 2 & 5\\
+\hspace{1em}\hspace{1em}2015 & 0 & 0 & 0 & 2 & 1 & 0 & 0 & 5 & 1 & 9\\
+\hspace{1em}\hspace{1em}2016 & 0 & 0 & 1 & 1 & 1 & 2 & 3 & 3 & 2 & 13\\
+\hspace{1em}\hspace{1em}2017 & 0 & 0 & 0 & 1 & 1 & 0 & 2 & 2 & 1 & 7\\
+\hspace{1em}\hspace{1em}2018 & 0 & 0 & 0 & 0 & 0 & 0 & 2 & 0 & 0 & 2\\
+\hspace{1em}\hspace{1em}Total & 0 & 0 & 1 & 4 & 4 & 5 & 9 & 11 & 6 & 40\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-13}\label{tab:8}Distribution of Reasons for Termination/Withdrawal of Scholarships by Year and Gender (Female / Male)}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{tabular}[t]{ccccccccccc}
+\toprule
+Year & Academic & Attendance & Behavior & Combination & Family Problem & Medical & Mental Health & Migration & Others & Total\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Terminated}}\\
+\hspace{1em}2013 & 10 / 31 & 0 / 0 & 0 / 0 & 0 / 2 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 0 & 10 / 33\\
+\hspace{1em}2014 & 2 / 16 & 0 / 0 & 0 / 1 & 0 / 2 & 0 / 0 & 1 / 0 & 1 / 0 & 0 / 0 & 1 / 0 & 5 / 19\\
+\hspace{1em}2015 & 1 / 10 & 0 / 0 & 0 / 0 & 0 / 1 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 0 & 1 / 11\\
+\hspace{1em}2016 & 6 / 11 & 0 / 3 & 0 / 2 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 0 & 6 / 16\\
+\hspace{1em}2017 & 2 / 18 & 2 / 0 & 1 / 3 & 1 / 1 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 0 & 1 / 0 & 7 / 22\\
+\hspace{1em}2018 & 6 / 25 & 0 / 0 & 2 / 8 & 0 / 3 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 0 & 8 / 36\\
+\hspace{1em}Total & 27 / 111 & 2 / 3 & 3 / 14 & 1 / 9 & 0 / 0 & 1 / 0 & 1 / 0 & 0 / 0 & 2 / 0 & 37 / 137\\
+\addlinespace[0.3em]
+\multicolumn{11}{l}{\textbf{Withdrawal}}\\
+\hspace{1em}2013 & 0 / 0 & 0 / 0 & 1 / 0 & 0 / 0 & 0 / 0 & 1 / 1 & 1 / 2 & 0 / 1 & 0 / 0 & 3 / 4\\
+\hspace{1em}2014 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 1 & 2 / 2 & 1 / 0 & 0 / 0 & 3 / 2 & 6 / 5\\
+\hspace{1em}2015 & 0 / 0 & 0 / 0 & 0 / 0 & 1 / 2 & 0 / 1 & 2 / 0 & 2 / 0 & 5 / 5 & 2 / 1 & 12 / 9\\
+\hspace{1em}2016 & 1 / 0 & 0 / 0 & 0 / 1 & 2 / 1 & 1 / 1 & 1 / 2 & 4 / 3 & 5 / 3 & 0 / 2 & 14 / 13\\
+\hspace{1em}2017 & 0 / 0 & 0 / 0 & 0 / 0 & 0 / 1 & 0 / 1 & 0 / 0 & 2 / 2 & 2 / 2 & 0 / 1 & 4 / 7\\
+\hspace{1em}2018 & 0 / 0 & 0 / 0 & 0 / 0 & 2 / 0 & 0 / 0 & 1 / 0 & 7 / 2 & 1 / 0 & 0 / 0 & 11 / 2\\
+\hspace{1em}Total & 1 / 0 & 0 / 0 & 1 / 1 & 5 / 4 & 1 / 4 & 7 / 5 & 17 / 9 & 13 / 11 & 5 / 6 & 50 / 40\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\hypertarget{miscellaneous}{%
+\subsection{Miscellaneous}\label{miscellaneous}}
+
+Note that Table \ref{tab:8} is the same as Table \ref{tab:7}. Which do
+you think is a better way to present large tables like these?
+Suggestions are welcome.
+
+
+\end{document}

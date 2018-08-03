@@ -1,0 +1,375 @@
+---
+title: "Profile Analysis of Students whose Scholarship was Withdrawn or Terminated between 2013 and 2018"
+classoption: a4paper
+author: "Joseph S. Tabadero, Jr.\\thanks{Philippine Science High School-CAR Campus, on detail at the OED}"
+date: "\\today"
+mainfont: "EB Garamond"
+monofont: "Fira Code"
+header-includes:
+  - \usepackage{draftwatermark}
+output:
+  pdf_document: 
+    latex_engine: xelatex
+    keep_tex: yes
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = F, message = F, out.width = "60%", ggplot2::theme_set(ggplot2::theme_bw()), fig.align = 'center')
+```
+
+```{r}
+library(readit)
+library(tidyverse)
+library(janitor)
+library(zoo)
+library(knitr)
+library(kableExtra)
+library(stargazer)
+```
+
+
+## Executive Summary
+
+From initial observations, we have the following observations:
+
+### On termination of scholarships
+
+* There have been 174 scholarships terminated during the school years between 2013 and 2018 (TableS \ref{tab:1} and \ref{reasons}).
+* The leading cause of termination of scholarship is difficulty in academics (138) for the school years covering 2013-2018 (Table \ref{tab:1}). This reason had a downward trend between 2013 and 2015 but shifted to an increasing trend from 2015 onwards (Table \ref{tab:1} and Fig. \ref{trend_year} ). This contributed largely to the trend of scholarship terminations (see Total column of Table \ref{tab:1} and Fig. \ref{trend}).
+* The frequency of behavioral reasons for termination has been increasing since 2015. It is not apparent from the data if these behavioral problems are due to mental health problems.
+* Males (137) lead females (37) in terms of scholarship terminated (Table \ref{tab:2} and Fig. \ref{gender}). In fact, in terms of termination of scholarship, the number of male students has consistently been greater than the number of female students since 2013 (Table \ref{tab:2} and Fig. \ref{gender_year}). This trend is consistent among campuses (see Table \ref{tab:5}). Males considerably outnumber females in terms of termination of scholarship due to academic and behavioral concerns vis-a-vis code of conduct (Table \ref{tab:7}).
+* Interns (95) outnumber externs (79) whose scholarship was terminated (Table \ref{residence_year} and Fig. \ref{residence}). This is also consistent throughout the year except for 2014 and 2018 when the numbers (12, and 22, respectively) of interns and externs whose scholarships were terminated are the same. This trend varies among campuses (see Table \ref{tab:4}).
+* Interns (95) outnumber interns (79) in terms of scholarships terminated. In particular, interns (80) outnumber externs (58) whose scholarships were terminated because of poor academic performance, not yet taking the total population of interns and externs into consideration. Interns whose scholarships were terminated due to violation of code of conduct almost equal that of their extern counterpartrs, again, not yet taking the respective total populations of interns and externs into consideration[^1].'
+
+[^1]: Considering for the time being that we still do not have the data on the population of interns and externs that the number of interns is far less than the number of externs, the proportion of interns with behavioral problems is larger by a large margin than that among the externs.
+
+
+### On withdrawal of scholarships
+
+* Since 2013, the number of withdrawals of scholarship (90) is less than the number of terminations of scholarship (174).
+* There have been 90 scholarship withdrawals since 2013 (Table \ref{tab:1}). Although the cases of withdrawals havce been less in the past two years compared to the years 2015 and 2016, when the number of withdrawals achieved its peak (27). 
+* Mental health problems have been the main cause of withdrawal with a total of 26 cases, followed closely by migration with a total of 24 cases (Table \ref{tab:1} and Fig. \ref{reasons}). While migration has been the primary reason for withdrawal between 2015 and 2016, it has been overtaken by mental health problems by 2017 (Fig. \ref{trend_year}). This can be attributed partly to increased awareness about mental health issues and detection of mental health problems.
+* The females (50) outnumber males (40) in terms of withdrawal of scholarships (Table \ref{tab:2} and Fig. \ref{gender}). This trend varies only slightly. I.e., the males outnumber the females in 2013 and 2017 (Table \ref{tab:2} and Fig. \ref{gender_year}). This is also the trend among campuses (Table \ref{tab:5}). The number of reported females with mental health concerns, migration, and other problems that are combinations mainly of mental health in nature outnummber the males (Table \ref{tab:7})[^5]. 
+
+[^5]: While this is the case, since the reasons behind the academic difficulties and violations of the code of conduct that resulted to the termination of scholarships are not known, we can easily fall into the trap of assuming that mental health problems are more frequent among female scholars than among male scholars.
+
+* Table \ref{tab:4} also shows that interns (50) who withdrew their scholarships outnumber externs (40). This varies slightly among campuses, most notable of which is Main Campus.
+* Interns (50) who had their scholarships withdrawn also outnumber externs (40) who had their scholarships withdrawn [^2], [^3]. In particular, the number of interns who had mental health issues as reason for withdrawal is proportionately larger than the number of their extern counterparts[^3]. Migration is also more common among interns (14) than externs (10). 
+
+
+[^2]: Again, taking the respective population of interns and externs, the number of interns who had their scholarships withdrawn is proportionately larger than that of the number of externs who had their scholarships similarly withdrawn.
+
+[^3]: Additional data on the population of interns and externs for both males and females have to be acquired in order to quantify this proportion.
+
+## Hypotheses
+
+We have the following hypotheses arising from our observations relative to our concern to address the mental health issues among our students:
+
+* The likelihood of having a student's scholarship terminated due to gender is higher among males than in females. More specifically: 
+
+  - The likelihood of having a student's scholarship terminated due to violation of the code of conduct is higher among males than among females.
+  - The likelihood of having a student's scholarship terminated due to difficulties in academics is higher among males than among females.
+
+* The likelihood of having a student's scholarship withdrawn due to gender is higher among females than in males.
+
+* The likelihood of having a student's scholarship terminated is higher among interns than among externs.
+
+* The likelihood of having a student's scholarship withdrawn is higher among interns than among externs.
+
+## Statistical Tests
+
+To test the above hypotheses, Chi-Square Tests of Association may be used. However, the tests of association will not be able to put the effect of co-variation into consideration. Ordinal regression or analysis of co-variance may be used to see the relationship between the reasons for termination/withdrawal and other variables like gender, residence (intern/extern) and scholarship category raw score. However, there might not be enough observations that would give us meaningful results.
+
+## Other data needs
+
+We can gain more insight with more data. More specifically, as is evident from the foregoing observations and notes, we would need:
+
+* the population of interns by gender, year, and campus;
+* the student population by gender, year, and campus; and,
+* the raw scholarship category score of each case of termination/withdrawal, which have been submitted, albeit incompletely.
+
+
+
+## Recommendations
+
+Attached with this report is the draft memo requiring the submission of the data as specified in the preceding section, and the MS Word and MS Excel forms for encoding the data pertaining to the first two items above.
+
+Ideally, we should also have the profile of students whose scholarship were not terminated/withdrawn, in order for us to tackle classification problems of determining the tendency for termination/withdrawal of scholarship. But this is not an immediate concern.
+
+```{r}
+#data <- readit("2013-2018 Student Data (Termination and Withdrawal of Scholarship) 3.xlsx")
+#data[, 1:3] <- na.locf(data[,1:3])
+#data <- data %>% mutate(Residence = case_when(Intern == "Yes"~"Intern", TRUE~"Extern")) %>%
+#  select(-Extern, -Intern)
+# data %>% select(-`BOT Resolution Number`, -`Basis/Reason`) %>% map(tabyl)
+# write_csv(data, "data.csv")
+```
+
+
+
+```{r}
+data <- read.csv("data.csv")
+```
+
+
+```{r}
+reasons_by_year <- data %>% 
+  tabyl(Year, Category, Status) %>% adorn_totals(c("row", "col")) 
+# lapply(reasons_by_year, function(x) write.table(data.frame(x), 'reasons_by_year.csv', append = T, sep = ","))
+#bind_cols(reasons_by_year$Termination, reasons_by_year$Withdrawal[,-1]) %>%
+#  kable(format = "latex", booktabs = T, escape = F, caption = "Frequency Distribution of Scholarship Termination/Withdrawal by Year and Reason", col.names = linebreak(c("Year", "Academic", "Attendance", "Behavior", "Combination", "Family\nProblem", "Medical", "Mental\nHealth", "Migration", "Others", "Total", "Academic", "Attendance", "Behavior", "Combination", "Family\nProblem", "Medical", "Mental\nHealth", "Migration", "Others", "Total"), align = "c")) %>% 
+#  add_header_above(c(" ", "Termination" = 10, "Withdrawal" = 10)) %>%
+#  landscape() %>%
+#  kable_styling(latex_options = "scale_down")
+```
+
+```{r}
+reasons_by_year %>%
+  enframe() %>%
+  unnest() %>%
+  select(-1) %>%
+  kable(format = "latex", booktabs = T, escape = F, caption = "\\label{tab:1}Frequency Distribution of Scholarship Termination/Withdrawal by Year and Reason", col.names = linebreak(c("Year", "Academic", "Attendance", "Behavior", "Combination", "Family\nProblem", "Medical", "Mental\nHealth", "Migration", "Others", "Total"), align = "c")) %>%
+  kable_styling(latex_options = "scale_down") %>%
+  group_rows(start_row = 1, end_row = 7, group_label = "Termination") %>%
+  group_rows(start_row = 8, end_row = 14, group_label = "Withdrawal")
+```
+
+
+```{r trend_year, fig.cap="\\label{trend_year}Distribution of Termination/Withdrawal of Scholarships by Reasons and Year"}
+reasons_by_year %>% enframe() %>% unnest() %>%
+  gather(Reasons, n, Academic:Others) %>% select(-Total) %>%
+  filter(Year != "Total") %>%
+  mutate(Year = as.numeric(Year)) %>%
+  ggplot(aes(Year, n)) + geom_line(aes(color = Reasons)) +
+  facet_wrap(~name)
+```
+
+```{r trend, fig.cap="\\label{trend}Distribution of Termination/Withdrawal of Scholarships by Reasons Aggregated by Year"}
+reasons_by_year %>% enframe() %>% unnest() %>%
+  gather(Reasons, n, Academic:Others) %>% 
+  filter(Year != "Total") %>%
+  mutate(Year = as.numeric(Year)) %>%
+  ggplot(aes(Year, Total)) + geom_line() +
+  facet_wrap(~name)
+```
+
+```{r reasons, fig.cap="\\label{reasons}Distribution of Termination/Withdrawal of Scholarships by Reasons"}
+reasons_by_year %>% enframe() %>% unnest() %>%
+  gather(Reasons, n, Academic:Others) %>% select(-Total) %>%
+  filter(Year != "Total") %>%
+  mutate(Year = as.numeric(Year)) %>%
+  ggplot(aes(Reasons, n)) + geom_col(alpha = 0.6, width = 0.75) +
+  facet_wrap(~name) + 
+  ylab("Frequency") +
+  coord_flip() 
+```
+
+```{r}
+gender_by_year <- data %>% 
+  tabyl(Year, Gender, Status) %>% adorn_totals(c("row", "col"))
+# lapply(gender_by_year, function(x) write.table(data.frame(x), 'reasons_by_year.csv', append = T, sep = ","))
+gender_termination <- gender_by_year$Termination %>% kable(caption = "Frequency Distribution of Scholarship Termination by Year and Gender")
+gender_withdrawal <- gender_by_year$Withdrawal %>% kable(caption = "Frequency Distribution of Withdrawal of Scholarship by Year and Gender")
+bind_cols(gender_by_year$Termination, gender_by_year$Withdrawal[,-1]) %>%
+  kable("latex", booktabs = T, caption = "\\label{tab:2}Frequency Distribution of Scholarship Termination/Withdrawal by Year and Gender", col.names = c("Year", "F", "M", "Total", "F", "M", "Total")) %>% 
+  add_header_above(c(" ", "Termination" = 3, "Withdrawal" = 3))
+```
+```{r gender, fig.cap="\\label{gender}Distribution of Termination/Withdrawal of Scholarships by Gender"}
+gender_by_year %>%
+  enframe() %>%
+  unnest() %>%
+  gather(Gender, n, F:M) %>%
+  ggplot(aes(Gender, n)) +
+  geom_col(width = 0.75, alpha = 0.6) + 
+  facet_wrap(~name) +
+  ylab("Frequency")
+```
+
+
+```{r gender_year, fig.cap="\\label{gender_year}Distribution of Termination/Withdrawal of Scholarships by Year and Gender"}
+gender_by_year %>% enframe() %>% unnest() %>%
+  gather(Gender, n, F:M) %>% select(-Total) %>%
+  filter(Year != "Total") %>%
+  mutate(Year = as.numeric(Year)) %>%
+  ggplot(aes(Year, n, color = Gender)) + geom_line() +
+  facet_wrap(~name)
+```
+
+
+
+```{r residence_year}
+residence_by_year <- data %>% 
+  tabyl(Year, Residence, Status) %>% adorn_totals(c("row", "col"))
+bind_cols(residence_by_year$Termination, residence_by_year$Withdrawal[,-1]) %>%
+  kable("latex", booktabs = T, caption = "\\label{residence_year}Frequency Distribution of Scholarship Termination/Withdrawal by Year and Residence", col.names = c("Year", "Extern", "Intern", "Total", "Extern", "Intern", "Total")) %>% 
+  add_header_above(c(" ", "Termination" = 3, "Withdrawal" = 3)) 
+# lapply(residence_by_year, function(x) write.table(data.frame(x), 'reasons_by_year.csv', append = T, sep = ","))
+```
+
+```{r residence, fig.cap = "\\label{residence}Distribution of Termination/Withdrawal of Scholarships by Residence"}
+residence_by_year %>% enframe() %>% unnest() %>%
+  gather(Residence, n, Extern:Intern) %>% select(-Total) %>%
+  filter(Year != "Total") %>%
+  mutate(Year = as.numeric(Year)) %>%
+  ggplot(aes(Residence, n)) + geom_col(alpha = 0.6) +
+  facet_wrap(~name) +
+  ylab("Frequency")
+```
+
+```{r residence_year2, fig.cap = "\\label{residence_year2}Distribution of Termination/Withdrawal of Scholarships by Residence and Year"}
+residence_by_year %>% enframe() %>% unnest() %>%
+  gather(Residence, n, Extern:Intern) %>% select(-Total) %>%
+  filter(Year != "Total") %>%
+  mutate(Year = as.numeric(Year)) %>%
+  ggplot(aes(Year, n, color = Residence)) + geom_line() +
+  facet_wrap(~name)
+```
+
+
+
+
+```{r}
+tables <- data %>% split(.$Status) %>%
+  map(function(x) x %>% tabyl(Year, Residence, Category) %>% adorn_totals(c("row", "col")))
+termination <- tables$Termination %>% bind_cols()
+withdrawal <- tables$Withdrawal %>% bind_cols()
+termination_dat <- termination %>% select(-Year1, -Year2, -Year3, -Year4, -Year5)
+withdrawal_dat <- withdrawal %>% select(-Year1, -Year2, -Year3, -Year4, -Year5)
+# write_csv(termination_dat, "termination_dat.csv")
+# write_csv(withdrawal_dat, "withdrawal_dat.csv")
+```
+
+```{r}
+# data %>% split(list(.$Status, .$Campus)) %>%
+#  map(function(x) x %>% tabyl(Year, Residence, Category) %>% adorn_totals(c("row", "col")))
+termination <- tables$Termination %>% bind_cols()
+withdrawal <- tables$Withdrawal %>% bind_cols()
+termination_dat <- termination %>% select(-Year1, -Year2, -Year3, -Year4, -Year5)
+withdrawal_dat <- withdrawal %>% select(-Year1, -Year2, -Year3, -Year4, -Year5)
+# write_csv(termination_dat, "termination_dat.csv")
+# write_csv(withdrawal_dat, "withdrawal_dat.csv")
+```
+
+```{r}
+data %>%
+  split(.$Status) %>%
+  map(function(x) x %>%
+  tabyl(Year, Campus, Gender) %>%
+  adorn_totals(c("row", "col")) %>%
+  enframe() %>%
+  unnest() %>%
+    rename(Residence = name)) %>%
+  enframe() %>%
+  unnest() %>%
+  select(-1,-2) %>%
+  kable(format = "latex", booktabs = T,
+        caption = "\\label{tab:5}Distribution of Termination/Withdrawal of Scholarships by Year, Campus and Gender") %>%
+  group_rows(group_label = "Termination", start_row = 1, end_row = 14) %>%
+  group_rows(group_label = "Female", start_row = 1, end_row = 7) %>%
+  group_rows(group_label = "Male", start_row = 8, end_row = 14) %>%
+  group_rows(group_label = "Withdrawal", start_row = 15, end_row = 28) %>%
+  group_rows(group_label = "Female", start_row = 15, end_row = 21) %>%
+  group_rows(group_label = "Male", start_row = 22, end_row = 28) %>%
+  kable_styling(latex_options = "scale_down")
+```
+
+
+```{r}
+data %>% 
+  split(.$Status) %>%
+  map(function(x) x %>%
+  tabyl(Year, Campus, Residence) %>%
+  adorn_totals(c("row", "col")) %>%
+  enframe() %>%
+  unnest() %>%
+    rename(Residence = name)) %>%
+  enframe() %>%
+  unnest() %>%
+  select(-1,-2) %>%
+  kable(format = "latex", booktabs = T,
+        caption = "\\label{tab:4}Distribution of Termination/Withdrawal of Scholarships by Year, Campus and Residence") %>%
+  group_rows(group_label = "Termination", start_row = 1, end_row = 14) %>%
+  group_rows(group_label = "Extern", start_row = 1, end_row = 7) %>%
+  group_rows(group_label = "Intern", start_row = 8, end_row = 14) %>%
+  group_rows(group_label = "Withdrawal", start_row = 15, end_row = 28) %>%
+  group_rows(group_label = "Extern", start_row = 15, end_row = 21) %>%
+  group_rows(group_label = "Intern", start_row = 22, end_row = 28) %>%
+  kable_styling(latex_options = "scale_down")
+```
+
+
+```{r}
+data %>% 
+  split(.$Status) %>%
+  map(function(x) x %>%
+  tabyl(Year, Category, Residence) %>%
+  adorn_totals(c("row", "col")) %>%
+  enframe() %>%
+  unnest() %>%
+    rename(Residence = name)) %>%
+  enframe() %>%
+  unnest() %>%
+  select(-1,-2) %>%
+  kable(format = "latex", booktabs = T,
+        caption = "\\label{tab:6}Distribution of Reasons for Termination/Withdrawal of Scholarships by Year and Residence") %>%
+  group_rows(group_label = "Termination", start_row = 1, end_row = 14) %>%
+  group_rows(group_label = "Extern", start_row = 1, end_row = 7) %>%
+  group_rows(group_label = "Intern", start_row = 8, end_row = 14) %>%
+  group_rows(group_label = "Withdrawal", start_row = 15, end_row = 28) %>%
+  group_rows(group_label = "Extern", start_row = 15, end_row = 21) %>%
+  group_rows(group_label = "Intern", start_row = 22, end_row = 28) %>%
+  kable_styling(latex_options = "scale_down")
+```
+
+```{r}
+data %>% 
+  split(.$Status) %>%
+  map(function(x) x %>%
+  tabyl(Year, Category, Gender) %>%
+  adorn_totals(c("row", "col")) %>%
+  enframe() %>%
+  unnest() %>%
+    rename(Residence = name)) %>%
+  enframe() %>%
+  unnest() %>%
+  select(-1,-2) %>%
+  kable(format = "latex", booktabs = T,
+        caption = "\\label{tab:7}Distribution of Reasons for Termination/Withdrawal of Scholarships by Year and Gender") %>%
+  group_rows(group_label = "Termination", start_row = 1, end_row = 14) %>%
+  group_rows(group_label = "Female", start_row = 1, end_row = 7) %>%
+  group_rows(group_label = "Male", start_row = 8, end_row = 14) %>%
+  group_rows(group_label = "Withdrawal", start_row = 15, end_row = 28) %>%
+  group_rows(group_label = "Female", start_row = 15, end_row = 21) %>%
+  group_rows(group_label = "Male", start_row = 22, end_row = 28) %>%
+  kable_styling(latex_options = "scale_down")
+```
+
+```{r}
+data %>% 
+  split(.$Status) %>%
+  map(function(x) x %>%
+  tabyl(Year, Category, Gender) %>%
+  adorn_totals(c("row", "col")) %>%
+  enframe() %>%
+  unnest() %>%
+    rename(Gender = name)) %>%
+  enframe() %>%
+  unnest() %>%
+  rename(Category = name) %>%
+  group_by(Category, Year) %>%
+  summarise_at(vars(Academic:Total), paste, collapse = " / ") %>%
+  ungroup() %>%
+  select(-1) %>%
+  kable(format = "latex", booktabs = T,
+        caption = "\\label{tab:8}Distribution of Reasons for Termination/Withdrawal of Scholarships by Year and Gender (Female / Male)",
+        align = 'c') %>%
+  group_rows(group_label = "Terminated", start_row = 1, end_row = 7) %>%
+  group_rows(group_label = "Withdrawal", start_row = 8, end_row = 14) %>%
+  kable_styling(latex_options = "scale_down")
+```
+
+## Miscellaneous
+
+Note that Table \ref{tab:8} is the same as Table \ref{tab:7}. Which do you think is a better way to present large tables like these? Suggestions are welcome.
