@@ -2,11 +2,9 @@
 title: "Profile Analysis of Students whose Scholarship was Withdrawn or Terminated between 2013 and 2018"
 classoption: a4paper
 author: "Joseph S. Tabadero, Jr.\\thanks{Philippine Science High School-CAR Campus, on detail at the OED}"
-date: "\\today"
+date: "Updated: \\today"
 mainfont: "EB Garamond"
 monofont: "Fira Code"
-header-includes:
-  - \usepackage{draftwatermark}
 output:
   pdf_document: 
     latex_engine: xelatex
@@ -32,7 +30,7 @@ library(stargazer)
 
 ## Executive Summary
 
-From initial observations, we have the following observations:
+We have the following intial observations:
 
 ### On termination of scholarships
 
@@ -78,9 +76,6 @@ We have the following hypotheses arising from our observations relative to our c
 
 * The likelihood of having a student's scholarship withdrawn is higher among interns than among externs.
 
-## Statistical Tests
-
-To test the above hypotheses, Chi-Square Tests of Association may be used. However, the tests of association will not be able to put the effect of co-variation into consideration. Ordinal regression or analysis of co-variance may be used to see the relationship between the reasons for termination/withdrawal and other variables like gender, residence (intern/extern) and scholarship category raw score. However, there might not be enough observations that would give us meaningful results.
 
 ## Other data needs
 
