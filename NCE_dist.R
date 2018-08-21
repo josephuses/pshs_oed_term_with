@@ -1,8 +1,12 @@
 library(data.table)
-nce <- fread("./Data/raw/NCE Data on Examinees (2011-2017).csv")
+
+nce <- fread("./Data/raw/NCE Data on Examinees with Region (2011-2017).csv")
 
 
 library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(janitor)
 names(nce)
 nce_td <- melt(nce, measure.vars = c("MATH (80 pts)", 
                                      "VERBAL (60 pts)", 
@@ -10,54 +14,55 @@ nce_td <- melt(nce, measure.vars = c("MATH (80 pts)",
                                      "ABSTRACT (40 pts)"),
                variable.name = "subject", value.name = "score")
 
-nce_tds <- sample_n(nce_td, 100)
-as.numeric(str_extract(nce_tds$subject, "[0-9]+"))
-setDT(nce_tds)
-nce_tds[,`:=`(maxscore = as.numeric(str_extract(subject, "[0-9]+")),
-              subject = trimws(gsub("\\([0-9]+.*\\)", "", subject)),
-              score = as.numeric(score))]
-
-nce_td[,`:=`(maxscore = as.numeric(str_extract(subject, "[0-9]+")),
-              subject = trimws(gsub("\\([0-9]+.*\\)", "", subject)),
-              score = as.numeric(score))]
-
-
-nce_tds[, Median := median(score), by = list(subject)]
-
-nce_tds[, flag := as.character(ifelse(score > Median, 1, 2))]
-nce_tds[, `PASS FLAG` := as.character(`PASS FLAG`)]
-nce_tds[, matched := flag == `PASS FLAG`]
-
-nce_tds[matched == FALSE]
-
-str(nce_td)
-1 %% 2
-nce_tds[,`PASS FLAG` := `PASS FLAG` %% 2]
-
-mod <- glm(`PASS FLAG` ~ `SCHOOL TYPE` + subject, data = nce_tds, family = binomial(link = "logit"))
-summary(mod)
-
-schooltype <- nce_td[, list(.N, mean = mean(score), SD = sd(score)), by = list(`SCHOOL TYPE`)]
-schooltype
-
-summary(nce_td)
-
-nce_tds[, list(mean = mean(score), SD = sd(score))]
-(15.96610-18.72) / 8.72484
-(22.68293-18.72) / 8.72484
-
-nce_td %>%
-  map_if(is.numeric, ~table(is.na(.)))
-
-filter(nce_td, is.na(score))
-
 nce_td[,`:=`(maxscore = as.numeric(str_extract(subject, "[0-9]+")),
               subject = trimws(gsub("\\([0-9]+.*\\)", "", subject)),
               score = as.numeric(score))]
 nce_td[, Median := median(score), by = list(subject)]
 
+nce_td[, Mean := mean(score), by = list(subject)]
 
-ggplot(nce_td, aes(score, fill = as.character(`PASS FLAG`))) +
-  geom_histogram() +
-  facet_wrap(~`SCHOOL TYPE`)
-nce_td[,.N, by = list(`SCHOOL TYPE`)]
+
+nce_td[, principal := ifelse(`PASS FLAG` == 1, 1, 0)]
+
+nce_td[, Mean_Subject := median(score), by = list(`NCE YEAR`, subject)]
+
+nce_td[, pass := ifelse(score > Mean_Subject, 1, 0)]
+
+nce_td[, `REGION NAME` := case_when(
+  `REGION NAME`== "AUTONOMOUS REGION IN MUSLIM MINDANAO"~"ARMM",
+  `REGION NAME` == "CORDILLERA ADMINISTRATIVE REGION"~"CAR",
+  `REGION NAME` == "KINGDOM OF SAUDI ARABIA"~"KSA",
+  `REGION NAME` == "NATIONAL CAPITAL REGION"~"NCR",
+  `REGION NAME` == "NEGROS ISLAND REGION"~"NIR",
+  `REGION NAME` == "UNITED ARAB EMERATES"~"UAE",
+  `REGION NAME` == "CENTRAL LUZON"~"CL",
+  `REGION NAME` == "DAVAO REGION"~"Davao",
+  `REGION NAME` == "BICOL REGION"~"Bicol",
+  TRUE~stringi::stri_trans_totitle(tolower(`REGION NAME`)))]
+
+nce_td[, `FIRST NAME` := stringi::stri_trans_totitle(tolower(`FIRST NAME`))]
+nce_td[, `LAST NAME` := stringi::stri_trans_totitle(tolower(`LAST NAME`))]
+nce_td[, `MIDDLE NAME` := stringi::stri_trans_totitle(tolower(`MIDDLE NAME`))]
+
+
+passflag <- nce_td %>%
+  group_by(`NCE YEAR`, `REGION NAME`, `LAST NAME`, `FIRST NAME`) %>%
+  summarise(passflag = sum(pass)) %>%
+  mutate(passflag = if_else(passflag == 4, 1, 0))
+
+nce_td <- merge(nce_td, passflag) 
+
+nce_td[, Pct := round(score / maxscore * 100, 2)]
+
+passers_n <- nce_td %>% filter(passflag == 1) %>% tabyl(principal, `NCE YEAR`, `REGION NAME`) 
+
+passers_n %>% adorn_totals("row")
+
+passers_pct <- nce_td %>% filter(passflag == 1) %>% tabyl(principal, `NCE YEAR`, `REGION NAME`) %>%
+  adorn_percentages(c("col")) %>%
+  enframe() %>% unnest()
+
+names(nce_td) <- sapply(strsplit(stringr::str_to_title(names(nce_td)), " "), paste, collapse = "_")
+
+nce_td[, Subject := str_to_title(Subject)]
+

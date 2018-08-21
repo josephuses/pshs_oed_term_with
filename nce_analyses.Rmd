@@ -1,0 +1,216 @@
+---
+title: "Analysis of NCE Scores"
+author: "Joseph S. Tabadero, Jr."
+date: "First Draft: August 18, 2018"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+monofont: Fira Code
+mainfont: EB Garamond
+toc: true
+keep_tex: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, cache = TRUE, message = FALSE, warning = FALSE, ggplot2::theme_set(ggplot2::theme_bw()))
+```
+
+## First Draft Quick Notes
+
+* The graphs and tables can be easily interpreted, but I want to pay particular attention to the last section first. I will make a fuller set of analyses once I have additional data on campus preference and the RE scores. It is based on the fact that, ideally, the students of PSHS belong to the top 1590 NCE examinees, each year (based on $240 + 15\times 90$). If we want to address the question of which campuses are ready to have more slots opened for scholars, we should look at the depth of our pool of scholars from each region. Typically, our scholars should be in the top 1590 in terms of NCE scores.
+* Consequently, we should ask the following questions: 
+  - What is the distribution of examinees from each region that made it to the top 1590 for each year? 
+  - How many examinees in the top 1590 from each region did not make it to PSHS because of the limit of scholars that could be accommodated in each campus?
+  - Related to the last question, how many scholars from each region may not have made it to PSHS were we to just base the selection on being in the top 1590 examinees in the entire Philippines?
+* A careful understanding of the above questions will also lead us to answer the question of how many passers in the *waiting list* can we tap without putting too much burden on instruction in order to get every scholar up to par.
+* At this point, we can skip the first sections and jump to the last table (Table 4) and graph (Figure 8). Essentially, the figure is a plot of the difference of the number of scholars who belong to the top 1590 in the entire Philippines and 240 (in the NCR) or 90 (in other regions; see Table 4 for the actual figures). What does the plot say?
+  - If the line graph coincides with red line (0), then the 90 scholars that they have each year belong to the top 1590 in the entire country. That means the top 90 in their region belong to the top 1590 in the entire country. In this case, an additional section of 30 students may be allowed.
+  - If the line graph is above the red line, then there are more examinees in the region who made it to the top 90 but might not have made it to PSHS because of existing enrollment limits by regional campus. In this case, maybe at least 1 additional section may be considered.
+  - If the line graph is below the red line, the there are principal qualifiers in the region who did not make it to the top 1590 in the entire country. This means that the quality of some of the principal qualifiers in these regions may not be up to par, initially.
+* From Figure 8 and Table 4, we immediately see the following:
+  - NCR, CALABARZON, Central Luzon, and Western Visayas have *remarkably* more passers in the top 1590 than the campus slots. In fact, with the number of passers belonging to the top 1590 students:
+    * NCR can fill up at least twice the 240 slots available for Main Campus; and, similarly,
+    * CALABARZON can fill up more than twice the 90 slots available for CALABARZON Campus.
+  - Davao, and Ilocos Region, and--to some extent--Eastern Visayas and Cagayan Valley have just enough passers in the top 90 to fill up their campus slots.
+  - ARMM, CAR, Caraga, Central Visayas, Mimaropa, NIR, Northern Mindanao, Soccsksargen, and Zamboanga Peninsual have way less passers who belong to the top 1590 than the slots for each campus.
+* These are based on NCE data according to the region of the test center. I have asked for additional data on campus preference. I think we will see similar patterns with that data.
+* I am excited to see the RE scores to see the effect of instruction on the performance of the students. From here, we can answer the question of whether or not a campus should increase the slots for scholars since we will know how capable the instruction and infrastructure in place in each campus in shaping up the principal qualifiers to the standards of the PSHS.
+
+*JST: `r Sys.Date()`*
+
+## Distribution by type of school
+
+```{r}
+source("NCE_dist.R")
+```
+
+```{r, fig.height=7,fig.width=5, fig.cap="Relative Frequency Histogram of scores of NCE examinees according to type of school since 2011"}
+ggplot(nce_td, aes(Total_Score)) +
+  geom_histogram(aes(y=..density..), bins = 40) + 
+  facet_wrap(~School_Type, ncol = 1)
+```
+
+## Distribution of scores by type of school and year
+
+```{r passersschoolregion, fig.height=12,fig.width=5, fig.cap="Relative Frequency Histogram of scores of NCE examinees by year according to type of school since 2011"}
+ggplot(nce_td, aes(Total_Score)) +
+  geom_histogram(aes(y=..density..), bins = 40) + 
+  facet_wrap(~Nce_Year + School_Type, ncol = 2)
+```
+
+## Distribution of NCE scores by region
+
+```{r passersregion, fig.height=7, fig.width=12, fig.cap="Relative Frequency Histogram of scores of NCE examinees by region since 2011"}
+regions <- nce_td %>% group_by(Region_Name) %>% count() %>% filter(n > 50) %>% select(1) %>% as_vector()
+nce_tdphils <- nce_td %>% filter(Region_Name %in% regions)
+ggplot(nce_tdphils, aes(Total_Score)) +
+  geom_histogram(aes(y=..density..), bins = 40) + 
+  facet_wrap(~Region_Name, ncol = 6)
+```
+
+```{r}
+nce_stat <- nce_td[, list(.N, 
+              Mean = mean(Total_Score), 
+              Min = min(Total_Score),
+              Q1 = quantile(Total_Score, 0.25),
+              Median = median(Total_Score),
+              Q3 = quantile(Total_Score, 0.75),
+              Max = max(Total_Score), 
+              SD = sd(Total_Score)), 
+              by = list(Region_Name)]
+setorder(nce_stat, -Mean)
+nce_stat %>% kable("latex", booktabs = TRUE, caption = "Statistics of scores of all NCE examinees since 2011") %>%
+  kable_styling(latex_options = "scale_down")
+```
+
+```{r}
+nce_stat_year <- nce_td[, list(.N, 
+              Mean = mean(Total_Score), 
+              Min = min(Total_Score),
+              Q1 = quantile(Total_Score, 0.25),
+              Median = median(Total_Score),
+              Q3 = quantile(Total_Score, 0.75),
+              Max = max(Total_Score), 
+              SD = sd(Total_Score)), 
+              by = list(Nce_Year, Region_Name)]
+setorder(nce_stat_year, Nce_Year, -Mean)
+```
+
+## Statistics of scores of all NCE examinees by region since 2011
+
+```{r}
+nce_stat_year %>% kable("markdown", caption = "Statistics of scores of all NCE examinees by region since 2011") 
+```
+
+## Number of NCE passers who did not qualify by region and year
+
+```{r passers, fig.width=12, fig.height=7, fig.cap="\\emph{Legend}: 0--Passed but did not qualify; 1--Passed and Qualified; Total--Total of Passers"}
+passers_n %>%
+  adorn_totals() %>%
+  enframe() %>%
+  unnest() %>%
+  filter(name %in% regions) %>%
+  gather(year, n, `2011`:`2017`) %>%
+  mutate(year = lubridate::ymd(year, truncated = 2L),
+         principal = as.character(principal)) %>%
+  ggplot(aes(year, n, group = principal, color = principal)) +
+  geom_line() +
+  facet_wrap(~name, ncol = 6) 
+```
+
+## Subject mean scores by region and year
+
+```{r subjectmeanscores, fig.width=12, fig.height=7, fig.cap="Mean Scores by subject by region since 2011"}
+nce_td %>%
+  filter(Region_Name %in% regions) %>%
+  mutate(Nce_Year = lubridate::ymd(Nce_Year, truncated = 2L)) %>%
+  ggplot(aes(Nce_Year, Pct, group = Subject, color = Subject)) +
+  stat_summary(fun.y = "mean", geom = "line") + 
+  facet_wrap(~Region_Name, ncol = 6)
+```
+
+## Subject maximum scores by region and year
+
+```{r subjectmaxscores, fig.width=12, fig.height=7, fig.cap="Maximum scores in NCE by region since 2011"}
+nce_td %>%
+  filter(Region_Name %in% regions) %>%
+  mutate(Nce_Year = lubridate::ymd(Nce_Year, truncated = 2L)) %>%
+  ggplot(aes(Nce_Year, Pct, group = Subject, color = Subject)) +
+  stat_summary(fun.y = "max", geom = "line") + 
+  facet_wrap(~Region_Name, ncol = 6)
+```
+
+## Subject minimum scores by region and year
+
+```{r subjectminscores, fig.width=12, fig.height=7, fig.cap="Minimum scores in NCE by region since 2011"}
+nce_td %>%
+  filter(Region_Name %in% regions) %>%
+  mutate(Nce_Year = lubridate::ymd(Nce_Year, truncated = 2L)) %>%
+  ggplot(aes(Nce_Year, Pct, group = Subject, color = Subject, linetype = Subject)) +
+  stat_summary(fun.y = "min", geom = "line") + 
+  facet_wrap(~Region_Name, ncol = 6)
+```
+
+```{r}
+nce_stat_year_subject <- nce_td[, .(.N, 
+              AvePct = round(mean(Pct), 2),
+              Mean = mean(Score), 
+              Min = min(Score),
+              Q1 = quantile(Score, 0.25),
+              Median = median(Score),
+              Q3 = quantile(Score, 0.75),
+              Max = max(Score), 
+              SD = sd(Score)), 
+              by = .(Nce_Year, Region_Name, Subject)]
+setorder(nce_stat_year_subject, Nce_Year, Region_Name, Subject, -AvePct)
+```
+
+## NCE score statistics by subject, region and year since 2011
+
+```{r}
+nce_stat_year_subject %>% kable("markdown", digits=2, caption = "NCE score statistics by region and year since 2011")
+```
+
+```{r}
+pass_principal <- dcast(nce_td, Passflag + Principal ~ Nce_Year + Region_Name, value.var = "Mean_subject", fun.aggregate = length) %>%
+  gather(year_region, N, `2011_ARMM`:`2017_Zamboanga Peninsula`, -Passflag, -Principal) %>%
+  separate(year_region, into = c("Year", "Region"), sep = "_")
+```
+
+
+```{r}
+whole <- nce_td %>%
+  filter(Region_Name %in% regions) %>%
+  group_by(Nce_Year, Region_Name, Last_Name, First_Name, Pass_Flag) %>%
+  summarise(Total_Score = first(Total_Score)) %>%
+  ungroup() 
+```
+
+```{r}
+whole1590 <- setorder(setDT(whole), Nce_Year, -Total_Score)[, head(.SD, 1590), by = Nce_Year][,.N, by = list(Nce_Year, Region_Name)]
+```
+
+```{r}
+whole1590_td <- whole1590 %>%
+  mutate(Diff = case_when(Region_Name == "NCR"~N-240,
+                          TRUE~N-90)) 
+```
+
+## Where are the top 1590 NCE examinees coming from?
+
+```{r}
+whole1590_td %>%
+  unite(N_Diff, N, Diff, sep = ": ") %>%
+  spread(Nce_Year, N_Diff) %>%
+  kable("latex", booktabs = TRUE, caption = "Number of students belonging to the top 1590 examinees from each region, not including examinees from outside the country, $N_1$, and the number of students who did not make it as a principal qualifier (positive) or the number of students who did not make it to the top 1590 nationally but made it as principal qualifiers (negative) by region, $N_2$ ($N_1: N_2$).")
+```
+
+```{r, fig.height=7, fig.width=12, fig.cap="Which among the regions have passers belonging to the top 1590 examinees who may not have make it to PSHS?"}
+whole1590_td %>%
+  mutate(Year = lubridate::ymd(Nce_Year, truncated = 2L)) %>%
+  ggplot(aes(Year, Diff, group = Region_Name)) + 
+  geom_line() +
+  geom_hline(yintercept = 0, color = "red") +
+  facet_wrap(~Region_Name, ncol = 6)
+```
+

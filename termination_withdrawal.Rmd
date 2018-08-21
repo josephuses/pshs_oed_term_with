@@ -34,7 +34,7 @@ We have the following intial observations:
 
 ### On termination of scholarships
 
-* There have been 174 scholarships terminated during the school years between 2013 and 2018 (TableS \ref{tab:1} and \ref{reasons}).
+* There have been 174 scholarships terminated during the school years between 2013 and 2018 (Tables \ref{tab:1} and \ref{reasons}).
 * The leading cause of termination of scholarship is difficulty in academics (138) for the school years covering 2013-2018 (Table \ref{tab:1}). This reason had a downward trend between 2013 and 2015 but shifted to an increasing trend from 2015 onwards (Table \ref{tab:1} and Fig. \ref{trend_year} ). This contributed largely to the trend of scholarship terminations (see Total column of Table \ref{tab:1} and Fig. \ref{trend}).
 * The frequency of behavioral reasons for termination has been increasing since 2015. It is not apparent from the data if these behavioral problems are due to mental health problems.
 * Males (137) lead females (37) in terms of scholarship terminated (Table \ref{tab:2} and Fig. \ref{gender}). In fact, in terms of termination of scholarship, the number of male students has consistently been greater than the number of female students since 2013 (Table \ref{tab:2} and Fig. \ref{gender_year}). This trend is consistent among campuses (see Table \ref{tab:5}). Males considerably outnumber females in terms of termination of scholarship due to academic and behavioral concerns vis-a-vis code of conduct (Table \ref{tab:7}).
@@ -77,7 +77,7 @@ We have the following hypotheses arising from our observations relative to our c
 * The likelihood of having a student's scholarship withdrawn is higher among interns than among externs.
 
 
-## Other data needs
+## Future analyses
 
 We can gain more insight with more data. More specifically, as is evident from the foregoing observations and notes, we would need:
 
@@ -137,7 +137,7 @@ reasons_by_year %>% enframe() %>% unnest() %>%
   gather(Reasons, n, Academic:Others) %>% select(-Total) %>%
   filter(Year != "Total") %>%
   mutate(Year = as.numeric(Year)) %>%
-  ggplot(aes(Year, n)) + geom_line(aes(color = Reasons)) +
+  ggplot(aes(Year, n)) + geom_line(aes(color = Reasons, linetype = Reasons)) +
   facet_wrap(~name)
 ```
 
@@ -188,7 +188,7 @@ gender_by_year %>% enframe() %>% unnest() %>%
   gather(Gender, n, F:M) %>% select(-Total) %>%
   filter(Year != "Total") %>%
   mutate(Year = as.numeric(Year)) %>%
-  ggplot(aes(Year, n, color = Gender)) + geom_line() +
+  ggplot(aes(Year, n, color = Gender, linetype = Gender)) + geom_line() +
   facet_wrap(~name)
 ```
 
@@ -218,7 +218,7 @@ residence_by_year %>% enframe() %>% unnest() %>%
   gather(Residence, n, Extern:Intern) %>% select(-Total) %>%
   filter(Year != "Total") %>%
   mutate(Year = as.numeric(Year)) %>%
-  ggplot(aes(Year, n, color = Residence)) + geom_line() +
+  ggplot(aes(Year, n, color = Residence, linetype = Residence)) + geom_line() +
   facet_wrap(~name)
 ```
 
