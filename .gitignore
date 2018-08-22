@@ -4,3 +4,6 @@
 .Ruserdata
 *_cache
 *_files
+*.doc*
+*.pdf
+Data
