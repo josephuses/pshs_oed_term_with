@@ -1,0 +1,264 @@
+---
+title: "Exploratory Analyses of NCE Data"
+subtitle: "Non-MCQ Component"
+author: "Joseph S. Tabadero, Jr."
+date: "August 31, 2018"
+output:
+  pdf_document: 
+    latex_engine: xelatex
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = TRUE)
+```
+
+```{r}
+source("re_data_structuring.R")
+```
+
+```{r}
+nonmcqranks <- re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "non-mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number())
+fwrite(nonmcqranks, "./Data/processed/nonmcqranks.csv")
+```
+
+
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "non-mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("math"), year %in% c(2015, 2016)) %>%
+  select(-test_type) %>%
+  kable("latex")
+```
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "non-mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("math"), year %in% c(2017, 2018)) %>%
+  select(-test_type) %>%  kable("latex")
+```
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "non-mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("stat")) %>%
+  select(-test_type) %>%  kable("latex")
+```
+
+```{r}
+re2015_18 %>%
+  filter(assessment == "re", subject == "math") %>%
+  spread(test_type, score) %>%
+  ungroup() %>%
+  group_by(campus, sn, sname, year, subject, grade) %>%
+  summarise_at(vars(mcq, `non-mcq`), sum, na.rm = TRUE) %>%
+  ggplot(aes(mcq, `non-mcq`)) +
+  geom_point() +
+  facet_wrap(~year)
+```
+```{r}
+mathmcq <- re2015_18 %>%
+  filter(assessment == "re", subject == "math") %>%
+  spread(test_type, score) %>%
+  ungroup() %>%
+  group_by(campus, sn, sname, year, subject, grade) %>%
+  summarise_at(vars(mcq, `non-mcq`), sum, na.rm = TRUE) 
+```
+
+```{r}
+mathmcq %>% split(.$year) %>% map(~cor(.$mcq, .$`non-mcq`))
+```
+
+## MCQ
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("math"), year %in% c(2015, 2016)) %>%
+  select(-test_type) %>%  kable("latex")
+```
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("math"), year %in% c(2017, 2018)) %>%
+  select(-test_type) %>%  kable("latex")
+```
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("stat")) %>%
+  select(-test_type) %>%  kable("latex")
+```
+
+## MCQ
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("phys"), year %in% c(2018)) %>%
+  select(-test_type) %>%  kable("latex")
+```
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "non-mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("phys"), year %in% c(2018)) %>%
+  select(-test_type) %>%  kable("latex")
+```
+
+## Stat
+
+### MCQ
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("stat"), year %in% c(2018)) %>%
+  select(-test_type) %>%  kable("latex")
+```
+
+### Non-MCQ
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "non-mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("stat"), year %in% c(2018)) %>%
+  select(-test_type) %>%  kable("latex")
+```
+
+### Combined
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("stat"), year %in% c(2018)) %>%
+  kable("latex")
+```
+
+```{r}
+means <- re2015_18 %>%
+  filter(subject == "stat", year == 2018, test_type == "mcq") %>%
+  group_by(campus) %>%
+  summarise(mean = mean(score))
+myorder <- means$campus[order(means$mean)]
+re2015_18 %>%
+  filter(subject == "stat", year == 2018) %>%
+  ggplot(aes(campus, score)) + geom_violin()+ facet_wrap(~test_type, scales = "free_x") + scale_x_discrete(limits = myorder) + coord_flip()
+```
+
+## IS
+
+### IS MCQ
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("is"), year %in% c(2018)) %>%
+  select(-test_type) %>%  kable("latex")
+```
+
+### IS non-MCQ
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus, test_type) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  filter(test_type == "non-mcq") %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("is"), year %in% c(2018)) %>%
+  select(-test_type) %>%  kable("latex")
+```
+
+### IS Combined
+
+```{r}
+re2015_18 %>% group_by(year, grade, subject, campus) %>%
+  summarise_at(vars(score), funs(mean, sd))  %>%
+  arrange(year, grade, subject, desc(mean)) %>%
+  group_by(year, grade, subject) %>%
+  mutate(rank = row_number()) %>%
+  mutate(campus = str_to_title(campus)) %>%
+  filter(subject %in% c("is"), year %in% c(2018)) %>%
+  kable("latex")
+```
+
+```{r}
+means <- re2015_18 %>%
+  filter(subject == "is", year == 2018, test_type == "mcq") %>%
+  group_by(campus) %>%
+  summarise(mean = mean(score))
+myorder <- means$campus[order(means$mean)]
+re2015_18 %>%
+  filter(subject == "is", year == 2018) %>%
+  ggplot(aes(campus, score)) + geom_violin()+ facet_wrap(~test_type, scales = "free_x") + scale_x_discrete(limits = myorder) + coord_flip()
+```
+
