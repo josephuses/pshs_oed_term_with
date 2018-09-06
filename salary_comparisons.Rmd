@@ -1,0 +1,43 @@
+---
+title: "Salary Comparisons"
+author: "Joseph S. Tabadero, Jr."
+date: "9/3/2018"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    keep_tex: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
+```
+
+```{r}
+library(tidyverse)
+library(readit)
+```
+
+```{r}
+salaryscale <- readit("./Data/raw/salarygrade.xlsx", sheet = 1)
+salaryscale <- salaryscale %>% separate_rows(`Salary Grade`, sep = ",") %>% mutate_at(vars(`Salary Grade`), as.numeric)
+salary <- readit("./Data/raw/salarygrade.xlsx", sheet = 2)
+salaryscale <- left_join(salaryscale, salary)
+salaryscale <- salaryscale %>% group_by(Class) %>% mutate(
+  Level = row_number()
+)
+```
+
+```{r, fig.cap="Starting basic salary in pesos"}
+salaryscale <- salaryscale %>% mutate(item = paste(Class, Level, sep = " ")) %>%
+  mutate(Group = case_when(str_detect(Class, "Teacher")~"Teacher",
+                           TRUE~"Guidance")) 
+salaryscale$item <- factor(salaryscale$item, levels = salaryscale$item[order(x=salaryscale$`Salary Grade`)])
+salaryscale %>% ggplot(aes(item, Salary)) + geom_segment(aes(x = item, y = 0, xend = item, yend = Salary, lineend = "round", linetype = Group)) + geom_point() + geom_text(aes(label = Salary), hjust = -0.5, size = 3)  + ylim(0,85000) + xlab(NULL) + 
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(), 
+        panel.background = element_blank(),
+        legend.position = "bottom",
+        legend.title = element_blank()) + geom_hline(yintercept = 0) + coord_flip() 
+```
+

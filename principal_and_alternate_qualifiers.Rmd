@@ -1,0 +1,87 @@
+---
+title: "On Principal and Alternate Qualifiers and the Top Scorers in the NCE"
+author: "Joseph S. Tabadero, Jr."
+date: "9/6/2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, message = F, warning =F)
+```
+
+
+```{r}
+source("nce_data_structuring.R")
+```
+
+## Principal Qualifiers
+
+```{r}
+ncetop1590 <- ncetd %>% 
+  filter(passflag2 == "passed" | pass_flag == 1) %>%
+  group_by(year) %>%
+  top_n(1590, score)
+```
+
+```{r}
+# ncetd %>% tabyl(year, pass_flag, passflag2)
+```
+```{r}
+ncetop1590diff <- ncetop1590 %>% tabyl(choice1, year) %>%
+  gather(year, N, 2:8) %>% 
+  mutate(Diff = case_when(choice1 == "MC"~N-240,
+                          TRUE ~ N-90)) %>%
+  mutate(year = lubridate::ymd(year, truncated = 2L))
+```
+```{r}
+ncetop1590diff %>% filter(!is.na(choice1)) %>% ggplot(aes(year, Diff)) + geom_line() + geom_hline(aes(yintercept = 0), linetype = "dashed") + facet_wrap(~choice1, scales = "free_y") +
+  theme_bw()
+```
+
+## Alternates
+
+## Principal Qualifiers
+
+```{r}
+ncetop3180 <- ncetd %>% 
+  filter(passflag2 == "passed" | pass_flag == 1) %>%
+  group_by(year) %>%
+  top_n(3180, score)
+```
+
+```{r}
+# ncetd %>% tabyl(year, pass_flag, passflag2)
+```
+```{r}
+ncetop3180diff <- ncetop3180 %>% tabyl(choice1, year) %>%
+  gather(year, N, 2:8) %>% 
+  mutate(Diff = case_when(choice1 == "MC"~N-240,
+                          TRUE ~ N-90)) %>%
+  mutate(year = lubridate::ymd(year, truncated = 2L))
+```
+
+
+
+```{r}
+ncetop3180diff %>% filter(!is.na(choice1)) %>% ggplot(aes(year, Diff)) + geom_line() + geom_hline(aes(yintercept = 0), linetype = "dashed") + facet_wrap(~choice1, scales = "free_y") +
+  theme_bw()
+```
+
+```{r}
+#ncetop3180 %>%
+#  group_by(year, choice1, id) %>%
+#  summarise(total = sum(score)) %>%
+#  ggplot(aes(total)) + geom_histogram(bins = 30) + facet_wrap(~choice1)
+```
+
+
+```{r}
+ncetop3180 %>%
+  group_by(year, choice1, id) %>%
+  summarise(total = sum(score)) %>%
+  summarise_at(vars(total), funs(min,q1 = quantile(.,0.25), median, mean, q3 = quantile(.,.75),max, sd)) %>%
+  kable("markdown") %>%
+  kable_styling(latex_options = c("striped", "repeat_header"))
+```
+```
+
