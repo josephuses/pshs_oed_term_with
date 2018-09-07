@@ -272,25 +272,8 @@ re2017 <- re2017 %>% mutate(subject = case_when(subject == "biology"~"bio",
                                                 subject == "statistics"~"stat",
                                                 TRUE~subject))
 
-re2017 <- re2017 %>% mutate_if(is.character, trimws)
-
 re2017 <- re2017 %>% 
-  mutate_if(is.character, trimws) %>%
-  mutate(subject = case_when(
-    test_type == "abstract"~"abstract",
-    test_type == "math"~"math",
-    test_type == "science"~"science",
-    test_type == "verbal"~"verbal",
-    TRUE~subject
-  )) %>%
-  mutate(test_type = case_when(
-    test_type == "abstract"~NA_character_,
-    test_type == "math"~NA_character_,
-    test_type == "science"~NA_character_, 
-    test_type == "verbal"~NA_character_,
-    TRUE~test_type
-  )) %>%
-  filter(subject != "total", test_type != "total")
+  mutate_if(is.character, trimws) 
 
 
 
@@ -389,24 +372,6 @@ re2018 <- re2018 %>%
             subject == "SSG10"~"ss",
             subject == "Statistics"~"stat", 
             TRUE~subject))
-
-re2018 <- re2018 %>% 
-  mutate_if(is.character, trimws) %>%
-  mutate(subject = case_when(
-    test_type == "abstract"~"abstract",
-    test_type == "math"~"math",
-    test_type == "science"~"science",
-    test_type == "verbal"~"verbal",
-    TRUE~subject
-  )) %>%
-  mutate(test_type = case_when(
-    test_type == "abstract"~NA_character_,
-    test_type == "math"~NA_character_,
-    test_type == "science"~NA_character_, 
-    test_type == "verbal"~NA_character_,
-    TRUE~test_type
-  )) %>%
-  filter(subject != "total", test_type != "total")
 
 re2018 <- re2018 %>% mutate_if(is.character, trimws)
 
@@ -535,24 +500,28 @@ re2018 <- re2018 %>% select(campus,
                             qualitype)
 
 re2015_18 <- bind_rows(re2015, re2016g8, re2016g10actual, re2017, re2018)
+re2015_18 <- re2015_18 %>% mutate(campus = case_when(campus %in% c("BICOL REGION", "BRC")~"BRC",
+                                                     campus %in% c("CALABARZON", "CBZRC", "CBZ")~"CBZRC",
+                                                     campus %in% c("CENTRAL LUZON", "CLC")~"CLC",
+                                                     campus %in% c("CENTRAL MINDANAO", "CMC")~"CMC",
+                                                     campus %in% c("CENTRAL VISAYAS", "CVISC")~"CVISC",
+                                                     campus %in% c("EASTERN VISAYAS", "EVC")~"EVC",
+                                                     campus %in% c("ILOCOS REGION", "IRC")~"IRC",
+                                                     campus %in% c("MAIN", "MC")~"MC",
+                                                     campus %in% c("MIMAROPA")~"MRC",
+                                                     campus %in% c("SOUTHERN MINDANAO", "SMC")~"SMC",
+                                                     campus %in% c("SOCCSKSARGEN REGION", "SRC")~"SRC",
+                                                     campus %in% c("WESTERN VISAYAS", "WVC")~"WVC",
+                                                     campus %in% c("ZAMBOANGA PENINSULA")~"ZRC",
+                                                     campus %in% c("CORDILLERA ADMINISTRATIVE", "CAR")~"CARC",
+                                                     campus %in% c("CAGAYAN VALLEY", "CVC")~"CVC",
+                                                     campus %in% c("CARAGA REGION", "CRC")~"CRC",
+                                                     TRUE~campus))
 
-re2015_18 <- re2015_18 %>% 
-  mutate_if(is.character, trimws) %>%
-  mutate(subject = case_when(
-  test_type == "abstract"~"abstract",
-  test_type == "math"~"math",
-  test_type == "science"~"science",
-  test_type == "verbal"~"verbal",
-  TRUE~subject
-)) %>%
-  mutate(test_type = case_when(
-    test_type == "abstract"~NA_character_,
-    test_type == "math"~NA_character_,
-    test_type == "science"~NA_character_, 
-    test_type == "verbal"~NA_character_,
-    TRUE~test_type
-  )) %>%
-  filter(subject != "total", test_type != "total")
+re2015_18 <- re2015_18 %>% mutate(subject = case_when(test_type %in% c("abstract", "math", "science", "verbal")~test_type,
+                                                      TRUE~subject))
+re2015_18 <- re2015_18 %>% filter(subject != "total", test_type != "total")
+
 
 format(object.size(re2015_18), units = "MB")
 
