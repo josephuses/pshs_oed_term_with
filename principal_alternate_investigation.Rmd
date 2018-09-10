@@ -1,0 +1,22 @@
+---
+title: "Name not found/Record Not found"
+author: "Joseph S. Tabadero, Jr."
+date: "9/10/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Name not found
+
+```{r}
+source("nce_data_structuring.R")
+```
+
+```{r}
+re2015_18 %>% filter(qualitype == "Name Not Found") %>%
+  distinct(campus,sname)
+```
+
