@@ -20,3 +20,7 @@ re2015_18 %>% filter(qualitype == "Name Not Found") %>%
   distinct(campus,sname)
 ```
 
+```{r}
+ncetd %>% filter(year == "2017", id == "77146")
+```
+
