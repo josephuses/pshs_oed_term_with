@@ -14,6 +14,15 @@ ncedat[, region_name := case_when(
   region_name %in% c("SOCCSKSARGEN REGION")~"SOCCSKSARGEN",
   TRUE~region_name
 )]
+names(ncedat)
+ncedat <- ncedat %>%
+  group_by(year) %>%
+  mutate(main = case_when(choice1 == "MC" & total >= total_mean & 
+                            science >= mean(science) & 
+                            math >= mean(math) & 
+                            abstract <= mean(abstract) & abstract >= 0.9*mean(abstract) | 
+                            (verbal >= 0.9 * mean(verbal) & verbal <= mean(verbal))~"main A",
+                          TRUE~NA_character_))
 ncetd <- ncedat %>% select(-total) %>%
   gather(subject, score, math:abstract)
 
@@ -37,18 +46,17 @@ ncetd[, total := sum(score, na.rm = TRUE), by = .(year, id, lname, fname, mname)
 ncetd[, pass := as.integer(score > mean), by = .(year)]
 ncetd[, pass := sum(pass, na.rm = T), by = .(year, id)]
 # this is wrong! modify!
-ncetd[, justpass := case_when(choice1 == "MC" & subject %in% c("math", "science")~as.integer(score >= mean & total >= total_mean),
-                              choice1 == "MC" & subject %in% c("abstract", "verbal")~as.integer(score >= 0.9 * mean & score < mean & total >= total_mean),
+ncetd[, justpass := case_when(main == "main A"~as.integer(main == "main A"),
                               TRUE~as.integer(score >= 0.9 * mean & score < mean & total >= total_mean)
-                              ), by = .(year, id)]
+                              )]
 ncetd[, justpass := sum(justpass, na.rm = T), by = .(year, id)]
 ncetd[, passflag2 := case_when(pass == 4 & total >= total_mean~"P",
-                               pass < 4 & total >= total_mean & justpass == 1~"A",
+                               pass < 4 & total >= total_mean & justpass >= 1 ~"A",
                                TRUE~"F")]
 
 
 alternates <- ncetd %>% distinct(year, id, region_name, passflag2, justpass, region_name, subject, score, mean, total, total_mean) %>% 
-  filter(justpass == 1, passflag2 == "A") %>%
+  filter(justpass == 4, passflag2 == "A") %>%
   arrange(year, region_name, id)
 alternates_wide <- dcast(setDT(alternates), region_name + year + id + total + total_mean + passflag2~subject, value.var = c("score", "mean"))
 
@@ -65,3 +73,8 @@ ncedat %>% group_by(year) %>% summarise_at(vars(total), mean)
 
 
 ncetd %>% distinct(year, id, pass_flag, passflag2, year, region_name) %>% tabyl(passflag2, year, region_name) 
+
+ncets <- ncetd %>% group_by(year, subject) %>% summarise_at(vars(score), funs(mean, sd))
+ncets
+fwrite(ncets, "ncets_year.csv")
+ncets <- ncetd %>% group_by(year) %>% summarise_at(vars(total), funs(mean, sd))
