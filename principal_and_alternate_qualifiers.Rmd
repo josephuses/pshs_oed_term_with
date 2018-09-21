@@ -77,22 +77,23 @@ A comparison of the distribution of RE scores of principal and alternate qualifi
 ncetop1590 <- ncetd %>% 
   filter(passflag2 == "passed" | pass_flag == 1) %>%
   group_by(year) %>%
-  top_n(1590, score)
+  top_n(1620, score)
 ```
 
 ```{r}
 # ncetd %>% tabyl(year, pass_flag, passflag2)
 ```
 ```{r}
-ncetop1590diff <- ncetop1590 %>% tabyl(choice1, year) %>%
+ncetop1620diff <- ncetop1590 %>% tabyl(choice1, year) %>%
   gather(year, N, 2:8) %>% 
   mutate(Diff = case_when(choice1 == "MC"~N-240,
+                          choice1 == "CBZRC"~N-120,
                           TRUE ~ N-90)) %>%
   mutate(year = lubridate::ymd(year, truncated = 2L))
 ```
 
 ```{r}
-ncetop1590diff %>%
+ncetop1620diff %>%
   unite(Diff, N, Diff, sep = ": ") %>%
   spread(year, Diff) %>%
   rename(Campus = choice1, "2011"="2011-01-01", "2012"="2012-01-01", "2013"="2013-01-01", "2014"="2014-01-01", "2015"="2015-01-01", "2016"="2016-01-01", "2017"="2017-01-01") %>%
@@ -101,7 +102,7 @@ ncetop1590diff %>%
 ```
 
 ```{r}
-ncetop1590diff %>% filter(!is.na(choice1)) %>% ggplot(aes(year, Diff)) + geom_line() + geom_hline(aes(yintercept = 0), linetype = "dashed") + facet_wrap(~choice1, scales = "free_y") +
+ncetop1620diff %>% filter(!is.na(choice1)) %>% ggplot(aes(year, Diff)) + geom_line() + geom_hline(aes(yintercept = 0), linetype = "dashed") + facet_wrap(~choice1, scales = "free_y") +
   theme_bw()
 ```
 
@@ -109,7 +110,7 @@ ncetop1590diff %>% filter(!is.na(choice1)) %>% ggplot(aes(year, Diff)) + geom_li
 
 
 ```{r}
-ncetop3180 <- ncetd %>% 
+ncetop3240 <- ncetd %>% 
   filter(passflag2 == "passed" | pass_flag == 1) %>%
   group_by(year) %>%
   top_n(3180, score)
@@ -119,15 +120,16 @@ ncetop3180 <- ncetd %>%
 # ncetd %>% tabyl(year, pass_flag, passflag2)
 ```
 ```{r}
-ncetop3180diff <- ncetop3180 %>% tabyl(choice1, year) %>%
+ncetop3240diff <- ncetop3240 %>% tabyl(choice1, year) %>%
   gather(year, N, 2:8) %>% 
   mutate(Diff = case_when(choice1 == "MC"~N-240,
+                          choice1 == "CBZRC"~N-120,
                           TRUE ~ N-90)) %>%
   mutate(year = lubridate::ymd(year, truncated = 2L))
 ```
 
 ```{r}
-ncetop3180diff %>%
+ncetop3240diff %>%
   unite(Diff, N, Diff, sep = ": ") %>%
   spread(year, Diff) %>%
   rename(Campus = choice1, "2011"="2011-01-01", "2012"="2012-01-01", "2013"="2013-01-01", "2014"="2014-01-01", "2015"="2015-01-01", "2016"="2016-01-01", "2017"="2017-01-01") %>%
@@ -136,7 +138,7 @@ ncetop3180diff %>%
 ```
 
 ```{r}
-ncetop3180diff %>% filter(!is.na(choice1)) %>% ggplot(aes(year, Diff)) + geom_line() + geom_hline(aes(yintercept = 0), linetype = "dashed") + facet_wrap(~choice1, scales = "free_y") +
+ncetop3240diff %>% filter(!is.na(choice1)) %>% ggplot(aes(year, Diff)) + geom_line() + geom_hline(aes(yintercept = 0), linetype = "dashed") + facet_wrap(~choice1, scales = "free_y") +
   theme_bw()
 ```
 
