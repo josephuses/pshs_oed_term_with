@@ -12,6 +12,8 @@ subtitle: Counting Top Passers, and Comparing the Relative Performances Against 
   and Alternate Qualifiers
 classoptions: a4paper, 11pt
 toc: yes
+header-includes:
+  - \input{preamble.tex}
 ---
 
 ```{r setup, include=FALSE}
@@ -57,9 +59,9 @@ We look at three factors affecting the capability of a campus to expand enrollme
 
 While the PSHS System is mandated to provide equal opportunity for each region to have an access to a PSHS campus, RA 8496 also requires standards for it to follow by "offering scholarships to deserving students" (Title I, Sec. 4). This is done through a rigorous selection process starting with the National Competitive Examination (NCE). 
 
-The NCE is composed of 4 tests---verbal, mathematics, science, and abstract reasoning. An *NCE passer* is defined as any NCE applicant whose score in each subject is above the subject mean score for the applicable NCE year. A *principal qualifier* is an NCE passer who either belongs to the top 240 NCE passers nationwide or to the top 90 NCE passers for his or her campus of first choice. 
+The NCE is composed of 4 tests---verbal, mathematics, science, and abstract reasoning. An *NCE passer* is defined as any NCE applicant whose score in each subject is above the subject mean score for the applicable NCE year. A *principal qualifier* is an NCE passer who either belongs to the top 240 NCE passers nationwide or to the top 90 NCE passers for his or her first preffered regional campus, with the exception of CALABARZON Region Campus where BOT has already increased the enrollment to 120. 
 
-A natural choice of indicator for the second factor is the number of passers each campus of first choice has in the top 1590 passing examinees nationwide. Here, we note that a principal qualifier in a campus might not be in the top 1590 passers. We arrive at the number 1590 by assuming 240 scholarship slots for Main Campus and 90 scholarship slots for each of the 15 existing regional campuses. Our assumption is that if the quality of applicants are the same throughout the regions of the country, then the proportion of NCE passers in the top 1590 from each region should be the same. This indicator can then show us: (i) how many NCE passers who belonged to the top 1590 did not qualify as a principal qualifier; and, (ii) how many principal qualifiers do not belong to the top 1590 NCE passers. Counting the number of the top 1590 NCE passers in each campus gives us an idea of whether or not we are giving scholarship slots to the most deserving applicants, while maintaining equal opportunity for applicants from the different regions to avail of a scholarship.
+A natural choice of indicator for the second factor are the numbers of principal and alternative qualifiers. A less obvious indicator is the number of passers each campus (as first choice) has in the top 1620 passing examinees nationwide. Here, we note that a principal qualifier in a campus might not be in the top 1620 passers. We arrive at the number 1620 by assuming 240 scholarship slots for Main Campus, 120 scholarship slots for CALABARZON Region Campus, and 90 scholarship slots for each of the other 14 existing regional campuses. Our assumption is that if the quality of applicants are the same throughout the regions of the country, then the number of NCE passers in the top 1620 from each region should be the same as the corresponding scholarship slots. This indicator can then show us: (i) how many NCE passers who belonged to the top 1620 did not qualify as a principal qualifier; and, (ii) how many principal qualifiers do not belong to the top 1620 NCE passers. Counting the number of the top 1620 NCE passers in each campus gives us an idea of whether or not we are giving scholarship slots to the most deserving applicants, while maintaining equal opportunity for applicants from the different regions to avail of a scholarship.
 
 The top 3180 NCE passers, on the other hand, can give us an idea on how deep in the list of alternate qualifiers the PSHS can go and still ensure that the quality of scholars is not compromised. Again, we can count the number of passers for each campus of choice who belong to the top 3180 NCE passers.
 
@@ -73,9 +75,25 @@ A comparison of the distribution of RE scores of principal and alternate qualifi
 
 ## Principal Qualifiers
 
+
 ```{r}
-ncetop1590 <- ncetd %>% 
-  filter(passflag2 == "passed" | pass_flag == 1) %>%
+kable(APF_by_campus_year, format = "latex", booktabs = TRUE, 
+      caption = "Number of Principal and Alternative Qualifiers by Regional Campus",
+      col.names = c("Campus",rep(c("P", "A"), times = 10))) %>% kable_styling(latex_options = "scale_down") %>%
+  add_header_above(c(" "=1,"2008"=2, "2009"=2, "2010"=2, "2011"=2, "2012"=2,"2013"=2,"2014"=2,"2015"=2,"2016"=2,"2017"=2))
+```
+
+
+```{r}
+kable(APF_by_region_year, format = "latex", booktabs = TRUE, 
+      caption = "Number of Principal and Alternative Qualifiers by Region",
+      col.names = c("Campus",rep(c("P", "A"), times = 10))) %>% kable_styling(latex_options = "scale_down") %>%
+  add_header_above(c(" "=1,"2008"=2, "2009"=2, "2010"=2, "2011"=2, "2012"=2,"2013"=2,"2014"=2,"2015"=2,"2016"=2,"2017"=2))
+```
+
+```{r}
+ncetop1620 <- ncetd %>% 
+  filter(passflag2 == "P") %>%
   group_by(year) %>%
   top_n(1620, score)
 ```
@@ -84,19 +102,20 @@ ncetop1590 <- ncetd %>%
 # ncetd %>% tabyl(year, pass_flag, passflag2)
 ```
 ```{r}
-ncetop1620diff <- ncetop1590 %>% tabyl(choice1, year) %>%
-  gather(year, N, 2:8) %>% 
+ncetop1620diff <- ncetop1620 %>% tabyl(choice1, year) %>%
+  gather(year, N, 2:11) %>% 
   mutate(Diff = case_when(choice1 == "MC"~N-240,
                           choice1 == "CBZRC"~N-120,
                           TRUE ~ N-90)) %>%
   mutate(year = lubridate::ymd(year, truncated = 2L))
+dcast(setDT(ncetop1620diff), year~choice1, value.var = c("N", "Diff"), fun.aggregate = sum)
 ```
 
 ```{r}
 ncetop1620diff %>%
   unite(Diff, N, Diff, sep = ": ") %>%
   spread(year, Diff) %>%
-  rename(Campus = choice1, "2011"="2011-01-01", "2012"="2012-01-01", "2013"="2013-01-01", "2014"="2014-01-01", "2015"="2015-01-01", "2016"="2016-01-01", "2017"="2017-01-01") %>%
+  rename(Campus = choice1, "2008"= "2011"="2011-01-01", "2012"="2012-01-01", "2013"="2013-01-01", "2014"="2014-01-01", "2015"="2015-01-01", "2016"="2016-01-01", "2017"="2017-01-01") %>%
   filter(!is.na(Campus)) %>%
   kable("latex", booktabs = TRUE, caption = "Number of students belonging to the top 1590 examinees by signified campus of first choice, $N_1$, and the number of students who did not make it as a principal qualifier in their choice campus (positive) or the number of students who did not make it to the top 1590 nationally but made it as principal qualifiers (negative) by region, $N_2$ ($N_1: N_2$).")
 ```
@@ -121,7 +140,7 @@ ncetop3240 <- ncetd %>%
 ```
 ```{r}
 ncetop3240diff <- ncetop3240 %>% tabyl(choice1, year) %>%
-  gather(year, N, 2:8) %>% 
+  gather(year, N, 2:11) %>% 
   mutate(Diff = case_when(choice1 == "MC"~N-240,
                           choice1 == "CBZRC"~N-120,
                           TRUE ~ N-90)) %>%

@@ -14,6 +14,20 @@ ncedat[, region_name := case_when(
   region_name %in% c("SOCCSKSARGEN REGION")~"SOCCSKSARGEN",
   TRUE~region_name
 )]
+ncedat[, choice1 := case_when(
+  choice1 %in% c("BICOL REGION CAMPUS")~"BRC",
+  choice1 %in% c("CAGAYAN VALLEY CAMPUS")~"CVC",
+  choice1 %in% c("CENTRAL LUZON CAMPUS")~"CLC",
+  choice1 %in% c("CENTRAL MINDANAO CAMPUS")~"CMC",
+  choice1 %in% c("CENTRAL VISAYAS CAMPUS")~"CVISC",
+  choice1 %in% c("CORDILLERA ADMINISTRATIVE REGION CAMPUS")~"CARC",
+  choice1 %in% c("EASTERN VISAYAS CAMPUS")~"EVC",
+  choice1 %in% c("ILOCOS REGION CAMPUS")~"IRC",
+  choice1 %in% c("SOUTHERN MINDANAO CAMPUS")~"SMC",
+  choice1 %in% c("WESTERN VISAYAS CAMPUS")~"WVC",
+  choice1 %in% c("MAIN CAMPUS")~"MC",
+  TRUE~choice1
+)]
 names(ncedat)
 ncedat <- ncedat %>%
   group_by(year) %>%
@@ -70,11 +84,19 @@ lapply(names(spt2), function(x){
 
 ncedat %>% group_by(year) %>% summarise_at(vars(math:abstract), mean)
 ncedat %>% group_by(year) %>% summarise_at(vars(total), mean)
+ncetd[, passflag2 := factor(passflag2, c("P", "A", "F"))]
 
+APF_by_region_year <- dcast(setDT(ncetd %>% filter(passflag2 != "F") %>% distinct(year, id, pass_flag, passflag2, year, region_name)), region_name ~ year + passflag2, value.var = "passflag2", fun.aggregate = length) %>%
+  adorn_totals(where = "row")
+APF_by_campus_year <- dcast(setDT(ncetd %>% filter(passflag2 != "F") %>% distinct(year, id, pass_flag, passflag2, year, choice1)), choice1 ~ year + passflag2, value.var = "passflag2", fun.aggregate = length) %>%
+  adorn_totals(where = "row")
 
-ncetd %>% distinct(year, id, pass_flag, passflag2, year, region_name) %>% tabyl(passflag2, year, region_name) 
 
 ncets <- ncetd %>% group_by(year, subject) %>% summarise_at(vars(score), funs(mean, sd))
 ncets
 fwrite(ncets, "ncets_year.csv")
 ncets <- ncetd %>% group_by(year) %>% summarise_at(vars(total), funs(mean, sd))
+
+
+fwrite(APF_by_campus_year, "APF_by_campus_year.csv")
+fwrite(APF_by_region_year, "APF_by_region_year.csv")
