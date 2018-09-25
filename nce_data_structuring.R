@@ -4,6 +4,7 @@ library(data.table)
 library(janitor)
 library(knitr)
 library(kableExtra)
+library(TeachingDemos)
 
 ncedat <- readit("./Data/raw/RE/NCE Data on Examinees with Campus (2011-2017).csv")
 setDT(ncedat)[, total_mean := mean(total), by = .(year)]
@@ -31,11 +32,11 @@ ncedat[, choice1 := case_when(
 names(ncedat)
 ncedat <- ncedat %>%
   group_by(year) %>%
-  mutate(main = case_when(choice1 == "MC" & total >= total_mean & 
+  mutate(main = case_when(choice1 == "MC" & (total >= total_mean & 
                             science >= mean(science) & 
-                            math >= mean(math) & 
-                            abstract <= mean(abstract) & abstract >= 0.9*mean(abstract) | 
-                            (verbal >= 0.9 * mean(verbal) & verbal <= mean(verbal))~"main A",
+                            math >= mean(math)) & 
+                            (abstract <= mean(abstract) & abstract >= 0.9*mean(abstract) | 
+                            (verbal >= 0.9 * mean(verbal) & verbal <= mean(verbal)))~"main A",
                           TRUE~NA_character_))
 ncetd <- ncedat %>% select(-total) %>%
   gather(subject, score, math:abstract)
@@ -56,12 +57,27 @@ ncetd <- ncedat %>% select(-total) %>%
 #                               TRUE~"F"))
 
 setDT(ncetd)[, mean := mean(score), by = .(year, subject)]
+ncetd[, score := as.numeric(score)]
+ncetd[, choice1mean := mean(score), by = .(year, choice1, subject)]
+ncetd[, choice2mean := mean(score), by = .(year, choice2, subject)]
+ncetd[, regmean := mean(score), by = .(year, subject, region_name)]
 ncetd[, total := sum(score, na.rm = TRUE), by = .(year, id, lname, fname, mname)]
-ncetd[, pass := as.integer(score > mean), by = .(year)]
+ncetd[, total_mean_choice1 := mean(total), by = .(year, choice1)]
+ncetd[, total_mean_choice2 := mean(total), by = .(year, choice2)]
+# consider definition of pass prior to 2013
+
+ncetd[, total_mean_region := mean(total), by = .(year, region_name)]
+
+# consider definition of pass prior to 2013
+
+ncetd[, pass := case_when(year %in% c(2008:2012) & choice1 != "MC"~as.integer(score > choice1mean), 
+                          TRUE~as.integer(score > mean)), by = .(year)]
+
+
 ncetd[, pass := sum(pass, na.rm = T), by = .(year, id)]
 # this is wrong! modify!
 ncetd[, justpass := case_when(main == "main A"~as.integer(main == "main A"),
-                              TRUE~as.integer(score >= 0.9 * mean & score < mean & total >= total_mean)
+                              TRUE~as.integer(between(score, 0.9*mean, mean) & (total >= total_mean))
                               )]
 ncetd[, justpass := sum(justpass, na.rm = T), by = .(year, id)]
 ncetd[, passflag2 := case_when(pass == 4 & total >= total_mean~"P",

@@ -80,9 +80,17 @@ The top 3180 NCE passers, on the other hand, can give us an idea on how deep in 
 
 ## Why do we have identify the number of top 1620 passers?
 
-Our attempt to count the number of passers who belong to the top 1620 NCE Examinees will make more sense if we count the number of passers and possible alternates per year. In Table 1, we can see that we have many passers than available scholarships throughout the years. However, the campuses differ in terms of preference by the NCE applicants. For instance, Main Campus has been perennially chosen by many applicants as their campus of first choice. In the other extreme, we see very few passers choosing MIMAROPA Regional Campus since 2015. Since only a limited number of scholarship slots are available, a system of choosing the principal qualifiers and alternate qualifiers is deviced. This system ensures the equitable distribution of scholarship slots per region. For instance, in the event that a passer does not qualify as a principal qualifier in his/her campus of first choice (usually Main Campus), he/she can opt to grab the scholarship slot being offered in his/her campus of second choice (usually in his/her home region). The distribution of passers and possible alternate qualifiers are shown in Table 2.
+Our attempt to count the number of passers who belong to the top 1620 NCE Examinees will make more sense if we count the number of passers and possible alternates per year. In Table 1, we can see that we have many passers than available scholarships throughout the years. However, the campuses differ in terms of preference by the NCE applicants. For instance, Main Campus has been perennially chosen by many applicants as their campus of first choice. In the other extreme, we see very few passers choosing MIMAROPA Regional Campus since 2015. Since only a limited number of scholarship slots are available, a system of choosing the principal qualifiers and alternate qualifiers is deviced. This system ensures the equitable distribution of scholarship slots per region. For instance, in the event that a passer does not qualify as a principal qualifier in his/her campus of first choice (usually Main Campus), he/she can opt to grab the scholarship slot being offered in his/her campus of second choice (usually in his/her home region). 
+
+The distribution of passers and possible alternate qualifiers by region of origin are shown in Table 2. From this table, we can see that throughout the years, MIMAROPA has the least number of passers, followed by Zamboanga Peninsula.
 
 While the present system ensures the equitable distribution of scholarship slots throughout the regions of the country on the one hand, it begs the question of whether the scholarship slots are being given to the best (in terms of NCE total score and sub-test scores) among the passers in the entire country.
+
+Table 3 shows the number of passers (N) belonging to the top 1620 and the number of passers not belonging to the top 1620 number of passers (Diff) per campus by year since 2008. Considering the Diff values, we have the following realizations:
+  
+  * Diff values that are close to zero means that almost if not all of the campus's principal qualifiers belong to the top 1620 NCE passers. This means that all of the students are expected to perform very well under the PSHS curriculum.
+  * Diff values that are positive and well above zero imply that the campus has more than its share of principal qualifiers in the top 1620 NCE passers. These campuses may offer more scholarship slots with guarantee that the additional slots will be given to deserving students in terms of aptitude. Increasing the number of scholarship slots in such campuses is recommended.
+  * Diff values that are negative and well below zero imply that the campus has less than its share of principal qualifiers in the top 1620 NCE passers. This means that there are other scholars, perhaps from other regions, that are more deserving, in terms of aptitude, to be given the scholarhsip slots. However, it may be the case that the quality of instruction of these campuses can appreciably uplift the performance of every student. This factor should be investigated further in order to determine when to increase the scholarship slots in such campuses.
 
 ```{r}
 kable(APF_by_campus_year, format = "latex", booktabs = TRUE, 
@@ -122,6 +130,18 @@ fwrite(ncetop1620diffwide, "ncetop1620diffwide.csv")
 ```
 
 ```{r}
+ncetop1620reg <- ncetop1620 %>% tabyl(choice1, year) %>%
+  gather(year, N, 2:11) %>% 
+  mutate(Diff = case_when(choice1 == "MC"~N-240,
+                          choice1 == "CBZRC"~N-120,
+                          TRUE ~ N-90)) %>%
+  mutate(year = lubridate::ymd(year, truncated = 2L))
+ncetop1620diffwide <- dcast(setDT(ncetop1620diff), choice1~year, value.var = c("N", "Diff"), fun.aggregate = sum)
+fwrite(ncetop1620diffwide, "ncetop1620diffwide.csv")
+```
+
+
+```{r}
 #ncetop1620diff %>%
 #  unite(Diff, N, Diff, sep = ": ") %>%
 #  spread(year, Diff) %>%
@@ -130,17 +150,17 @@ fwrite(ncetop1620diffwide, "ncetop1620diffwide.csv")
 #  kable("latex", booktabs = TRUE, caption = "Number of students belonging to the top 1590 examinees by signified campus of first choice, $N_1$, and the number of students who did not make it as a principal qualifier in their choice campus (positive) or the number of students who did not make it to the top 1590 nationally but made it as principal qualifiers (negative) by region, $N_2$ ($N_1: N_2$).")
 ```
 
-```{r}
-ncetop1620diff %>% filter(!is.na(choice1)) %>% ggplot(aes(year, Diff)) + geom_line() + geom_hline(aes(yintercept = 0), linetype = "dashed") + facet_wrap(~choice1, scales = "free_y") +
+```{r, fig.width=12, fig.height=7}
+ncetop1620diff %>% filter(!is.na(choice1)) %>% ggplot(aes(year, Diff)) + geom_line() + geom_hline(aes(yintercept = 0), linetype = "dashed") + facet_wrap(~choice1, scales = "free_y") + 
+  xlab("Year") +
   theme_bw()
 ```
 
-## Alternates
 
 
 ```{r}
 ncetop3240 <- ncetd %>% 
-  filter(passflag2 == "passed" | pass_flag == 1) %>%
+  filter(passflag2 %in% c("P", "A")) %>%
   group_by(year) %>%
   top_n(3180, score)
 ```
@@ -174,7 +194,23 @@ ndiff %>%
 ```
 
 ```{r}
+ndiff3240 <- fread("ndiff3240.csv", na.strings = "")
+
+ndiff3240 %>%
+  mutate(Campus = case_when(is.na(Campus)~"No Choice",
+                            TRUE~Campus)) %>%
+  kable("latex", 
+        booktabs = T,
+        col.names = c("Campus", rep(c("N", "Diff"), times = 10)),
+        caption = "Number of passers and alternate passers belonging to the top 3240 examinees by signified campus of first choice, $N$, and the number of students who did not make it as a principal qualifier in their choice campus (positive) or the number of students who did not make it to the top 3240 nationally but made it as principal qualifiers (negative) by region, Diff.") %>%
+  kable_styling(latex_options = "scale_down") %>%
+  add_header_above(c(" "=1, "2008"=2,"2009"=2,"2010"=2,"2011"=2,"2012"=2,"2013"=2,"2014"=2,"2015"=2,"2016"=2,"2017"=2))
+```
+
+
+```{r, fig.width=12, fig.height = 7}
 ncetop3240diff %>% filter(!is.na(choice1)) %>% ggplot(aes(year, Diff)) + geom_line() + geom_hline(aes(yintercept = 0), linetype = "dashed") + facet_wrap(~choice1, scales = "free_y") +
+  xlab("Year") +
   theme_bw()
 ```
 
