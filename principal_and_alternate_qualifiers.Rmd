@@ -53,40 +53,49 @@ source("nce_data_structuring.R")
 
 With the establishment of the MIMAROPA campus, the Philippine Science High School is now one region away from establishing a campus in every region in the country---as mandated by Republic Act 8496 (otherwise known as "Philippine Science High School (PSHS) System Act of 1997") as amended by Republich Act 9036. This mandate empowers the PSHS System's Board of Trustees to "develop policies for the expansion of enrollment in campuses under the PSHS System" (Section 7 (j)). However, up until CALABARZON Campus increased the number of scholarship slots, there has yet to be a system by which the BOT can determine the readiness of a campus to expand expand enrollment.
 
-We look at three factors affecting the capability of a campus to expand enrollment: (1) available infrastructure and budget; (2) the depth of the pool of qualified applicants by campus of choice; and (3) the capability of instructional services to bring every accepted scholar up to PSHS standards. The first factor is easily ascertained by inspection. In this paper, we investigate factors 2 and 3 and propose indicators to for each.
+We look at three factors affecting the capability of a campus to expand enrollment: (1) available infrastructure and budget; (2) the depth of the pool of qualified applicants by campus of choice; and (3) the capability of instructional services to bring every accepted scholar up to PSHS standards. The first factor is easily ascertained by inspection. In this paper, we investigate and propse indicators for factor 2. Factor 3 is a more broad topic that can be covered by future papers, hopefully in collaboration with researchers from different campuses.
 
 ## Counting Qualified Applicants
 
 While the PSHS System is mandated to provide equal opportunity for each region to have an access to a PSHS campus, RA 8496 also requires standards for it to follow by "offering scholarships to deserving students" (Title I, Sec. 4). This is done through a rigorous selection process starting with the National Competitive Examination (NCE). 
 
-The NCE is composed of 4 tests---verbal, mathematics, science, and abstract reasoning. An *NCE passer* is defined as any NCE applicant whose score in each subject is above the subject mean score for the applicable NCE year. A *principal qualifier* is an NCE passer who either belongs to the top 240 NCE passers nationwide or to the top 90 NCE passers for his or her first preffered regional campus, with the exception of CALABARZON Region Campus where BOT has already increased the enrollment to 120. 
+The NCE is composed of 4 tests---verbal, mathematics, science, and abstract reasoning. An *NCE passer* is defined as any NCE applicant whose score in each subject is above the subject mean score for the applicable NCE year. A *principal qualifier* is an NCE passer who either belongs to the top 240 NCE passers nationwide or to the top 90 NCE passers for his or her first preffered regional campus, with the exception of CALABARZON Region Campus where BOT has already increased the enrollment to 120. An *alternate qualifier* is determined using a more elaborate set of rules. However, for the purpose of this paper, we shall take the first two rules for our definition of an *alternate qualifier*:
 
-A natural choice of indicator for the second factor are the numbers of principal and alternative qualifiers. A less obvious indicator is the number of passers each campus (as first choice) has in the top 1620 passing examinees nationwide. Here, we note that a principal qualifier in a campus might not be in the top 1620 passers. We arrive at the number 1620 by assuming 240 scholarship slots for Main Campus, 120 scholarship slots for CALABARZON Region Campus, and 90 scholarship slots for each of the other 14 existing regional campuses. Our assumption is that if the quality of applicants are the same throughout the regions of the country, then the number of NCE passers in the top 1620 from each region should be the same as the corresponding scholarship slots. This indicator can then show us: (i) how many NCE passers who belonged to the top 1620 did not qualify as a principal qualifier; and, (ii) how many principal qualifiers do not belong to the top 1620 NCE passers. Counting the number of the top 1620 NCE passers in each campus gives us an idea of whether or not we are giving scholarship slots to the most deserving applicants, while maintaining equal opportunity for applicants from the different regions to avail of a scholarship.
+> To be an alternate in the Main Campus, an examinee should satisfy the following eligibility:
+
+> i. Total score is above the national mean; and
+
+> ii. Sub-test Scores in Quantitative and Scientific Abilities must all be greater than or equal to the corresponding national means. On the other hand Sub-test Scores in Verbal Aptitude and Abstract Reasoning must be greater than or equal to 90% of the national mean. For example, if the national mean score in verbal aptitude is 25, an examinee is eligible as alternate if his/her score is at least 22.50.
+
+> To be an alternate in the Regional Campus, an examinee should satisfy the following eligibility:
+
+> i.	Total score is above the national mean; and 
+
+> ii.	Sub-test Score per subject must be greater than or equal to 90% of the national mean. For example, if the national mean score in verbal aptitude is 25, an examinee is eligible as alternate if his/her score is at least 22.50. 
+
+
+A natural choice of indicator for the second factor are the numbers of principal and alternative qualifiers. However, this is a relative measure since the principal and alternative qualifiers are determined by factors such as campus of preference (first and second), which ensures an equitable distribution of scholarship opportunities for each region. A less obvious---but more standard---indicator is *the number of passers each campus (as first choice) has in the top 1620 passing examinees nationwide*. Here, we note that a principal qualifier in a campus might not be in the top 1620 passers. We arrive at the number 1620 by assuming 240 scholarship slots for Main Campus, 120 scholarship slots for CALABARZON Region Campus, and 90 scholarship slots for each of the other 14 existing regional campuses. Our assumption is that if the quality of applicants are the same throughout the regions of the country, then the number of NCE passers in the top 1620 from each region should be the same as the corresponding scholarship slots, which should be primarily dictated by the population of that region. This indicator can then show us: (i) how many NCE passers who belonged to the top 1620 did not qualify as a principal qualifier; and, alternatively, (ii) how many principal qualifiers did not belong to the top 1620 NCE passers. Counting the number of the top 1620 NCE passers in each campus gives us an idea of whether or not we are giving scholarship slots to the most deserving applicants, while maintaining equal opportunity for applicants from the different regions to avail of a scholarship.
 
 The top 3180 NCE passers, on the other hand, can give us an idea on how deep in the list of alternate qualifiers the PSHS can go and still ensure that the quality of scholars is not compromised. Again, we can count the number of passers for each campus of choice who belong to the top 3180 NCE passers.
 
-## How good is the quality of instruction in PSHS?
+## Why do we have identify the number of top 1620 passers?
 
-A critical factor in expanding enrollment is the availability of qualified teachers for each of the regional campuses. The members of the faculty of PSHS are usually degree holders in specialized fields. A measure of the quality of instruction given by teachers is the Readiness Examination (RE) score. The RE is given to Grades 8 and 10 in order to determine the readiness of scholars to pursue more advanced studies in line with the included subjects: integrated science, mathematics, social science, english, statistics, filipino. 
+Our attempt to count the number of passers who belong to the top 1620 NCE Examinees will make more sense if we count the number of passers and possible alternates per year. In Table 1, we can see that we have many passers than available scholarships throughout the years. However, the campuses differ in terms of preference by the NCE applicants. For instance, Main Campus has been perennially chosen by many applicants as their campus of first choice. In the other extreme, we see very few passers choosing MIMAROPA Regional Campus since 2015. Since only a limited number of scholarship slots are available, a system of choosing the principal qualifiers and alternate qualifiers is deviced. This system ensures the equitable distribution of scholarship slots per region. For instance, in the event that a passer does not qualify as a principal qualifier in his/her campus of first choice (usually Main Campus), he/she can opt to grab the scholarship slot being offered in his/her campus of second choice (usually in his/her home region). The distribution of passers and possible alternate qualifiers are shown in Table 2.
 
-It can been shown that economic status correlates positively with NCE performance. Instruction should be able to improve the readiness of every scholar---principal qualifier or otherwise. Instruction in PSHS should bridge the gap brought by socio-economic background and level the playing field for each scholar. In such an environment, there should only be a few extremely exceptional scholars---all else should perform almost equally well.
-
-A comparison of the distribution of RE scores of principal and alternate qualifiers is therefore required.
-
-## Principal Qualifiers
-
+While the present system ensures the equitable distribution of scholarship slots throughout the regions of the country on the one hand, it begs the question of whether the scholarship slots are being given to the best (in terms of NCE total score and sub-test scores) among the passers in the entire country.
 
 ```{r}
 kable(APF_by_campus_year, format = "latex", booktabs = TRUE, 
-      caption = "Number of Principal and Alternative Qualifiers by Regional Campus",
+      caption = "Number of Passers and Possible Alternate Qualifiers by Regional Campus",
       col.names = c("Campus",rep(c("P", "A"), times = 10))) %>% kable_styling(latex_options = "scale_down") %>%
-  add_header_above(c(" "=1,"2008"=2, "2009"=2, "2010"=2, "2011"=2, "2012"=2,"2013"=2,"2014"=2,"2015"=2,"2016"=2,"2017"=2))
+  add_header_above(c(" "=1,"2008"=2, "2009"=2, "2010"=2, "2011"=2, "2012"=2,"2013"=2,"2014"=2,"2015"=2,"2016"=2,"2017"=2)) %>%
+  add_footnote(c("For CBZRC, CRC, MRC, SRC, and ZRC, the zeros indicate that the campuses were not yet operational during those years."))
 ```
 
 
 ```{r}
 kable(APF_by_region_year, format = "latex", booktabs = TRUE, 
-      caption = "Number of Principal and Alternative Qualifiers by Region",
+      caption = "Number of Passers and Possible Alternate Qualifiers by Region",
       col.names = c("Campus",rep(c("P", "A"), times = 10))) %>% kable_styling(latex_options = "scale_down") %>%
   add_header_above(c(" "=1,"2008"=2, "2009"=2, "2010"=2, "2011"=2, "2012"=2,"2013"=2,"2014"=2,"2015"=2,"2016"=2,"2017"=2))
 ```
@@ -108,16 +117,17 @@ ncetop1620diff <- ncetop1620 %>% tabyl(choice1, year) %>%
                           choice1 == "CBZRC"~N-120,
                           TRUE ~ N-90)) %>%
   mutate(year = lubridate::ymd(year, truncated = 2L))
-dcast(setDT(ncetop1620diff), year~choice1, value.var = c("N", "Diff"), fun.aggregate = sum)
+ncetop1620diffwide <- dcast(setDT(ncetop1620diff), choice1~year, value.var = c("N", "Diff"), fun.aggregate = sum)
+fwrite(ncetop1620diffwide, "ncetop1620diffwide.csv")
 ```
 
 ```{r}
-ncetop1620diff %>%
-  unite(Diff, N, Diff, sep = ": ") %>%
-  spread(year, Diff) %>%
-  rename(Campus = choice1, "2008"= "2011"="2011-01-01", "2012"="2012-01-01", "2013"="2013-01-01", "2014"="2014-01-01", "2015"="2015-01-01", "2016"="2016-01-01", "2017"="2017-01-01") %>%
-  filter(!is.na(Campus)) %>%
-  kable("latex", booktabs = TRUE, caption = "Number of students belonging to the top 1590 examinees by signified campus of first choice, $N_1$, and the number of students who did not make it as a principal qualifier in their choice campus (positive) or the number of students who did not make it to the top 1590 nationally but made it as principal qualifiers (negative) by region, $N_2$ ($N_1: N_2$).")
+#ncetop1620diff %>%
+#  unite(Diff, N, Diff, sep = ": ") %>%
+#  spread(year, Diff) %>%
+#  rename(Campus = choice1, "2008"= "2011"="2011-01-01", "2012"="2012-01-01", "2013"="2013-01-01", "2014"="2014-01-01", "2015"="2015-01-01", "2016"="2016-01-01", "2017"="2017-01-01") %>%
+#  filter(!is.na(Campus)) %>%
+#  kable("latex", booktabs = TRUE, caption = "Number of students belonging to the top 1590 examinees by signified campus of first choice, $N_1$, and the number of students who did not make it as a principal qualifier in their choice campus (positive) or the number of students who did not make it to the top 1590 nationally but made it as principal qualifiers (negative) by region, $N_2$ ($N_1: N_2$).")
 ```
 
 ```{r}
@@ -145,15 +155,22 @@ ncetop3240diff <- ncetop3240 %>% tabyl(choice1, year) %>%
                           choice1 == "CBZRC"~N-120,
                           TRUE ~ N-90)) %>%
   mutate(year = lubridate::ymd(year, truncated = 2L))
+ncetop3240diffwide <- dcast(setDT(ncetop3240diff), choice1~year, value.var = c("N", "Diff"), fun.aggregate = sum)
+fwrite(ncetop3240diffwide, "ncetop3240diffwide.csv")
 ```
 
 ```{r}
-ncetop3240diff %>%
-  unite(Diff, N, Diff, sep = ": ") %>%
-  spread(year, Diff) %>%
-  rename(Campus = choice1, "2011"="2011-01-01", "2012"="2012-01-01", "2013"="2013-01-01", "2014"="2014-01-01", "2015"="2015-01-01", "2016"="2016-01-01", "2017"="2017-01-01") %>%
-  filter(!is.na(Campus)) %>%
-  kable("markdown", caption = "Number of students belonging to the top 3180 examinees by signified campus of first choice, $N_1$, and the number of students who did not make it as a principal qualifier in their choice campus (positive) or the number of students who did not make it to the top 3180 nationally but made it as principal qualifiers (negative) by region, $N_2$ ($N_1: N_2$).")
+ndiff <- fread("ndiff.csv", na.strings = "")
+
+ndiff %>%
+  mutate(Campus = case_when(is.na(Campus)~"No Choice",
+                            TRUE~Campus)) %>%
+  kable("latex", 
+        booktabs = T,
+        col.names = c("Campus", rep(c("N", "Diff"), times = 10)),
+        caption = "Number of students belonging to the top 1620 examinees by signified campus of first choice, $N$, and the number of students who did not make it as a principal qualifier in their choice campus (positive) or the number of students who did not make it to the top 1620 nationally but made it as principal qualifiers (negative) by region, Diff.") %>%
+  kable_styling(latex_options = "scale_down") %>%
+  add_header_above(c(" "=1, "2008"=2,"2009"=2,"2010"=2,"2011"=2,"2012"=2,"2013"=2,"2014"=2,"2015"=2,"2016"=2,"2017"=2))
 ```
 
 ```{r}
@@ -177,224 +194,5 @@ ncetop3240diff %>% filter(!is.na(choice1)) %>% ggplot(aes(year, Diff)) + geom_li
 #   mutate(pct = total / 220 * 100) %>%
 #   summarise_at(vars(pct), funs(min,q1 = quantile(.,0.25), median, mean, q3 = quantile(.,.75),max, sd)) %>%
 #   kable("markdown", latex_options = c("striped", "repeat_header"), digits = 2, caption = "Distribution of Total Score Percentages by Campus and by NCE Year")
-```
-
-
-```{r}
-re2015_18 <- readit("./Data/processed/re2015_18.csv")
-```
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(campus, score)) + geom_boxplot() + facet_wrap(~grade+subject) + coord_flip()
-```
-
-```{r}
-# uncomment in final report
-# re2015_18 %>% filter(assessment == "re") %>% group_by(year, campus, grade, subject, qualitype, sname) %>%
-#   summarise_at(vars(score), sum) %>%
-#   ungroup() %>%
-#   group_by(year, campus, grade, subject, qualitype) %>%
-#   summarise_at(vars(score), funs(min, Q3 = quantile(., .25, na.rm = T), median, Q4 = quantile(., .75, na.rm = T), max, mean(.,na.rm = T), sd(.,na.rm = T))) %>%
-#   kable("markdown", latex_options = c("striped", "repeat_header"), digits = 2)
-```
-
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### Bicol Region Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "BRC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-
-### CAR Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "CARC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### CBZRC Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "CBZRC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### Central Luzon Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "CLC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### Central Mindanao Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "CMC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### Caraga Region Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "CRC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### Cagayan Valley Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "CVC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### Central Visayas Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "CVISC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### Eastern Visayas Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "EVC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### Ilocos Region Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "IRC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### Main Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "MC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### MIMAROPA Region Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "MRC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### Southern Mindanao Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "SMC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### SRC Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "SRC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### Western Visayas Campus
-
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "WVC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-### CAR Campus
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re", campus == "ZRC") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-```
-
-
-## PSHS System
-
-```{r, fig.height=12, fig.width=7}
-re2015_18 %>% filter(assessment == "re") %>%
-  group_by(year, campus, grade, subject, qualitype, sname) %>%
-  summarise_at(vars(score), sum) %>%
-  group_by(year, campus, grade, subject, qualitype) %>%
-  summarise_at(vars(score), mean) %>%
-  ggplot(aes(qualitype, score)) + geom_boxplot() + facet_wrap(~grade+subject) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
