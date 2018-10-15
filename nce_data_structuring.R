@@ -114,5 +114,16 @@ fwrite(ncets, "ncets_year.csv")
 ncets <- ncetd %>% group_by(year) %>% summarise_at(vars(total), funs(mean, sd))
 
 
+
+
 fwrite(APF_by_campus_year, "APF_by_campus_year.csv")
 fwrite(APF_by_region_year, "APF_by_region_year.csv")
+
+APF_by_region_year2 <- fread("APF_by_region_year2.csv")
+deped <- fread("deped.csv")
+setkey(deped, "regno")
+setkey(APF_by_region_year2, "regno")
+APF_by_region_year2 <- APF_by_region_year2[deped]
+
+# fwrite(APF_by_region_year2, "regional_pops.csv")
+regional <- fread("regional_pops.csv")
