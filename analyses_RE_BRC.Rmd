@@ -1,5 +1,5 @@
 ---
-title: "Analysis of Readiness Examination Scores: CARC"
+title: "Analysis of Readiness Examination Scores: BRC"
 date: "10/30/2018"
 output:
   word_document: 
@@ -41,7 +41,7 @@ source("re_data_structuring.R")
 
 
 ```{r}
-re2015_18 <- setDT(re2015_18)[,stype := case_when(subject %in% c("english", "filipino", "ss")~"Humanities",TRUE~"STEM")][campus == "CARC"]
+re2015_18 <- setDT(re2015_18)[,stype := case_when(subject %in% c("english", "filipino", "ss")~"Humanities",TRUE~"STEM")][campus == "BRC"]
 ```
 
 ```{r, include=FALSE}

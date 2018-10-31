@@ -1,0 +1,153 @@
+---
+title: "Analysis of Readiness Examination Scores: ZRC"
+date: "10/30/2018"
+output:
+  word_document: 
+    reference_docx: analyses_RE_2018.docx
+  pdf_document: default
+toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.width = 10, fig.height = 8, fig.align = "center", cache = TRUE, ggplot2::theme_set(ggplot2::theme_bw()))
+```
+
+```{r}
+source("re_data_structuring.R")
+```
+
+## Executive Summary
+
+* Integrated Science has the lowest MCQ RE scores. The test-takers performed the best in the English MCQ test.
+* In the non-MCQ scores, the test-takers had the best performance in Filipino but fared worst in both Math and English.
+* In general, the scores for the MCQ tests are normally distributed. This means that, in the MCQ tests, about 68% of the students scored 1 standard deviation about the mean score. 
+* Visible skewness in the distribution of scores can be found in some of the Non-MCQ scores. Notably, in all subjects, except for Filipino, there were more students that scored less than the campus mean score.
+* In the following analyses, 50% is used to benchmark the scores of the students. There are two ways of viewing this benchmark: the subjects are easy or the students are not "ready" in more than 50% of the skills covered in the tests. These two views may not be mutually exclusive of each other. Also, the 50% benchmark is arbitrary and can be set by the subject-matter experts. However, there is the danger of setting the benchmark too low in order to make it appear that the students performed well when in fact they fail to show readiness in most skills required by the items that they fail to answer correctly[^1]. 
+  - In terms of the MCQ test scores, more than half of the students who took the tests got more than 50% of the items correctly in all tests, except for Integrated Science (49%). On the other hand, 87% of the students scored at least 50% in English.
+  - In terms of the non-MCQ tests, only 15% of the test-takers scored at least 50% in Mathematics, and only 22% of the test-takers scored at least 50% in Social Science. On the other hand, there were 87% of the test takers who got at least 50% in Filipino.
+
+[^1]: Morever, the subject-matter experts can also identify critical skills that are required for the higher years in PSHS. But this rather complicates how we assess the readiness of our students for higher learning. In the end, we should strive for a balance between the ability to assess the nuances of our students' readiness for more complicated tasks and the expediency of determining such readiness for intervention purposes.
+  
+
+## Statistics in Figures
+
+
+```{r}
+re2015_18 <- setDT(re2015_18)[,stype := case_when(subject %in% c("english", "filipino", "ss")~"Humanities",TRUE~"STEM")][campus == "ZRC"]
+```
+
+```{r, include=FALSE}
+re2015_18 <- re2015_18[assessment == "re"][,`:=`(total = sum(score, na.rm = T), total_max = sum(maxscore, na.rm = T)), by = .(year, grade, subject, sname)]
+```
+
+```{r}
+re2015_18[,pct := round(score / maxscore * 100, 2)]
+re2015_18[,pct_tot := round(total / total_max * 100, 2)]
+```
+
+### Distribution of Grade 8 MCQ scores in the 2017 RE
+
+```{r, fig.height = 3}
+re2015_18[test_type == "mcq" & total > 0 & score > 0 & grade == "8", ] %>% mutate(year = lubridate::ymd(year, truncated = 2L)) %>%
+  mutate(subject = toupper(subject)) %>%
+  ggplot(aes(year, pct, group = year)) + geom_boxplot() + facet_wrap(~subject, nrow = 1) +
+  ylab("Percent") +
+  xlab("Subject")
+```
+
+
+
+### Distribution of Grade 8 Non-MCQ scores from 2015-2018
+
+```{r, fig.height = 3}
+re2015_18[test_type == "non-mcq" & total > 0 & score > 0 & grade == "8", ] %>% mutate(year = lubridate::ymd(year, truncated = 2L)) %>%
+  mutate(subject = toupper(subject)) %>%
+  ggplot(aes(year, pct, group = year)) + geom_boxplot() + facet_wrap(~subject, nrow = 1) +
+  ylab("Percent") +
+  xlab("Subject")
+```
+
+
+
+
+### Distribution of Grade 8 MCQ scores for 2018 RE
+
+```{r, fig.height=3}
+summaryre2018g8 <- re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8", .(mean = round(mean(pct)), SD = round(sd(pct)), median = round(median(pct))), by = .(year, grade, subject)][,subject := toupper(subject)]
+re2015_18[test_type == "mcq" & total > 0 & score > 0 & grade == "8" & year == "2018", ] %>% mutate(year = lubridate::ymd(year, truncated = 2L)) %>%
+  mutate(subject = toupper(subject)) %>%
+  ggplot(aes(pct, group = year)) + geom_histogram(aes(y = 100*..density..), bins = 18, alpha = 0.7, color = "white") + facet_wrap(~subject, nrow = 1) + geom_density(aes(y = 100 *..density..)) +
+  geom_vline(data = summaryre2018g8, aes(xintercept = mean), color = "red") +
+  geom_vline(data = summaryre2018g8, aes(xintercept = median), color = "blue") +
+  geom_text(data = summaryre2018g8, aes(x = 20, y = 5.5, label = paste("Mean = ", mean)), nudge_x = 10, color = "red") +
+  geom_text(data = summaryre2018g8, aes(x = 20, y = 5, label = paste("Median = ", median)), nudge_x = 10, color = "blue") +
+  xlab("Score (%)") +
+  ylab("Percentage of Test Takers")
+```
+
+
+
+
+### Distribution of Grade 8 Non-MCQ scores for 2018 RE
+
+```{r, fig.height=3}
+summaryre2018g8nmcq <- re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8", .(mean = round(mean(pct)), SD = round(sd(pct)), median = round(median(pct))), by = .(year, grade, subject)][,subject := toupper(subject)]
+re2015_18[test_type == "non-mcq" & total > 0 & score > 0 & grade == "8" & year == "2018", ] %>% mutate(year = lubridate::ymd(year, truncated = 2L)) %>%
+  mutate(subject = toupper(subject)) %>%
+  ggplot(aes(pct, group = year)) + geom_histogram(aes(y = 100*..density..), bins = 10, alpha = 0.7, color = "white") + facet_wrap(~subject, nrow = 1) + geom_density(aes(y = 100 *..density..)) +
+  geom_vline(data = summaryre2018g8nmcq, aes(xintercept = mean), color = "red") +
+  geom_vline(data = summaryre2018g8nmcq, aes(xintercept = median), color = "blue") +
+  geom_text(data = summaryre2018g8nmcq, aes(x = 20, y = 5.5, label = paste("Mean = ", mean)), nudge_x = 10, color = "red") +
+  geom_text(data = summaryre2018g8nmcq, aes(x = 20, y = 5, label = paste("Median = ", median)), nudge_x = 10, color = "blue") +
+  xlab("Score (%)") +
+  ylab("Percentage of Test Takers")
+```
+
+
+
+### Distribution of Scores: Humanities vs STEM
+```{r, fig.height=3}
+re2015_18[year == "2018"] %>%
+  ggplot(aes(stype, pct)) +
+  geom_boxplot() +
+  facet_wrap(~test_type)
+```
+
+## Statistics in Numbers
+
+```{r}
+library(pander)
+library(moments)
+```
+
+### Grade 8 MCQ Test
+
+```{r}
+below50 <- function(x) {x >= 50}
+stats <- function(x) {
+  list(
+    N = length(x),
+    mean = round(mean(x),2),
+    SD = round(sd(x),2),
+    min = min(x),
+    Q1 = quantile(x, .25),
+    median = round(median(x)),
+    Q3 = quantile(x, .75),
+    max = max(x),
+    `% >= 50` = round(sum(as.integer(below50(x))) / length(x) * 100)
+    )
+}
+
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8", stats(pct), by = .(year, grade, subject)][, subject := toupper(subject)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+```
+
+### Grade 8 Non-MCQ Test
+
+```{r}
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8", stats(pct), by = .(year, grade, subject)][, subject := toupper(subject)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+```
+
+
+
+
+

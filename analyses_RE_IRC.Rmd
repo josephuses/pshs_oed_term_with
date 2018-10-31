@@ -1,5 +1,5 @@
 ---
-title: "Analysis of Readiness Examination Scores: CARC"
+title: "Analysis of Readiness Examination Scores: IRC"
 date: "10/30/2018"
 output:
   word_document: 
@@ -18,30 +18,27 @@ source("re_data_structuring.R")
 
 ## Executive Summary
 
-* The MCQ RE scores for Grade 8 continue to improve in general with the exception of Integrated Science, where the scores are lower compared to the 2017 scores.
-* There are remarkable improvements in the Grade 8 non-MCQ RE scores for Filipino, IS, and Math. However, there is a noticeable downward shift in the Social Science and English non-MCQ scores. Such drop is quite remarkable in Social Science.
-* The Grade 10 MCQ scores for English and Statistics follow an increasing trend. There are remarkable increases in the scores for Biology, Filipino and Social Science. On the other hand, there is an appreciable decrease in the Physics scores. Such decrease is also the trend, system-wide.
-* In terms of the Grade 10 non-MCQ tests, only English and Filipino have had a remarkable increase in the distribution of scores. The others either remained the same or have become lower than the previous year.
-* In general, the scores for the MCQ tests are normally distributed. This means that, in the MCQ tests, about 68% of the students scored 1 standard deviation about the mean score. Visible skewness in the distribution of scores can be found in some of the Non-MCQ scores. Notably:
-  - in Grade 8 Filipino Non-MCQ test, more students got scores that are higher than the mean score;
-  - in Grade 8 Social Science Non-MCQ test, more students got scores that are lower than the mean score;
-  - an appreciable number of students scored lower than the mean scores in the Grade 10 Chemistry, English and Math Non-MCQ tests.
+* The 2018 MCQ RE scores for Grade 8 have an increasing trend. Notably, English scores hav a remarkable increase compared to 2017. On the other hand, the increasing trend of the distribution of Integrated Science scores was halted by a decrease in 2018.
+* There are remarkable improvements in the Grade 8 non-MCQ RE scores for Filipino, IS, and Math. However, there is a noticeable downward shift in the Social Science non-MCQ scores. 
+* The Grade 10 MCQ scores follow an increasing trend in all subjects except in Physics. There is a remarkable decrease of scores in Physics. Such decrease is also the trend, system-wide.
+* In terms of the Grade 10 non-MCQ tests, the scores in Biology, English, and Filipino have an increasing trend. 
+* In general, the scores for the MCQ tests are normally distributed. This means that, in the MCQ tests, about 68% of the students scored 1 standard deviation about the mean score. 
+* Visible skewness in the distribution of scores can be found in the Grade 8 Filipino Non-MCQ scores. That is, more students got scores that are higher than the mean score than those who did not.
 * In the following analyses, 50% is used to benchmark the scores of the students. There are two ways of viewing this benchmark: the subjects are easy or the students are not "ready" in more than 50% of the skills covered in the tests. These two views may not be mutually exclusive of each other. Also, the 50% benchmark is arbitrary and can be set by the subject-matter experts. However, there is the danger of setting the benchmark too low in order to make it appear that the students performed well when in fact they fail to show readiness in most skills required by the items that they fail to answer correctly[^1]. 
-  - In terms of the MCQ test scores for Grade 8, more than half of the students who took the tests got more than 50% of the items correctly in all tests. However, more or less 2 out of 5 students scored below 50% in Integrated Science. This is followed by Math, in which 21% of the students scored below 50%. On the other hand, 97% of the students scored above 50% in English.
-  - In terms of the non-MCQ tests for Grade 8, only 26% of the test-takers scored above 50% in Social Science, which is the lowest among all of the subjects. On the other extreme side, 95% of the test-takers got at least 50% of the items correctly in the Filipino non-MCQ test.
-  - More than 50% of the Grade 10 test-takers scored 50% or above in all Grade 10 MCQ subjects except for Physics (47%) and Chemistry (49%). However, Mathematics (53%) and Statistics (59%) also have noticeably low percentages of test-takers that scored above 50%.
-  - In all the non-MCQ tests in STEM, except for Biology, the test-takers got scores below 50%. However, even in Biology, there were only 51% of the test-takers who scored more than 50%. More worrisome is the fact that in all of the computational subjects, less than 40% got scores above 50% (Math---14%; Stat---1%; Physics---37%). However, this is not surprising as this has been the trend for these subjects in the past years.
+  - In terms of the MCQ test scores for Grade 8, more than half of the students who took the tests got more than 50% of the items correctly in all tests. 
+  - In terms of the non-MCQ tests for Grade 8, only 18% of the test-takers scored above 50% in Social Science, which is the lowest among all of the subjects. In the rest of the subjects, more than 50% of the students got scores that are abovec 50%. In particular, 84% of the test-takers got at least 50% of the items correctly in the Filipino non-MCQ test.
+  - More than 50% of the Grade 10 test-takers scored 50% or above in all Grade 10 MCQ subjects except in Statistics (44%), Physics (15%) and Mathematics (40%). On the other hand, almost all test-takers got a score of more than 50% in Filipino (98%) and English (98%).
+  - In all of the Grade 10 non-MCQ tests in STEM, below 50% of the test-takers got scores of at least 50%. More worrisome is the fact that in all of the computational subjects, less than 15% got scores above 50% (Math---6%; Stat---5%; Physics---11%). However, this is not surprising, as this has been the trend for these subjects in the past years.
   - It is also not surprising that the students performed worse in the STEM subjects than in the Humanities subjects, overall. But the gap in performance is alarming, nonetheless.
   - The students also performed worse in Non-MCQ tests in general. This difference is remarkably noticeable for STEM subjects. Also, scores in Humanities subjects varied more in the non-MCQ tests than in the MCQ tests.
 
 [^1]: Morever, the subject-matter experts can also identify critical skills that are required for the higher years in PSHS. But this rather complicates how we assess the readiness of our students for higher learning. In the end, we should strive for a balance between the ability to assess the nuances of our students' readiness for more complicated tasks and the expediency of determining such readiness for intervention purposes.
-  
 
 ## Statistics in Figures
 
 
 ```{r}
-re2015_18 <- setDT(re2015_18)[,stype := case_when(subject %in% c("english", "filipino", "ss")~"Humanities",TRUE~"STEM")][campus == "CARC"]
+re2015_18 <- setDT(re2015_18)[,stype := case_when(subject %in% c("english", "filipino", "ss")~"Humanities",TRUE~"STEM")][campus == "IRC"]
 ```
 
 ```{r, include=FALSE}
