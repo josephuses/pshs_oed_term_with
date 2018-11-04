@@ -189,27 +189,27 @@ stats <- function(x) {
     )
 }
 
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8", stats(pct), by = .(year, grade, subject)][, subject := toupper(subject)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8", stats(pct), by = .(year, grade, subject)][, subject := toupper(subject)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 8 Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8", stats(pct), by = .(year, grade, subject)][, subject := toupper(subject)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8", stats(pct), by = .(year, grade, subject)][, subject := toupper(subject)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 
 ### Grade 10 MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10", stats(pct), by = .(year, grade, subject)][, subject := toupper(subject)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10", stats(pct), by = .(year, grade, subject)][, subject := toupper(subject)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 
 ### Grade 10 Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10", stats(pct), by = .(year, grade, subject)][, subject := toupper(subject)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10", stats(pct), by = .(year, grade, subject)][, subject := toupper(subject)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ## Relative Performances of Campus
@@ -217,157 +217,157 @@ re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10", s
 ### Grade 8 English MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8" & subject == "english", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8" & subject == "english", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 8 English Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8" & subject == "english", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8" & subject == "english", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 8 Filipino MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8" & subject == "filipino", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8" & subject == "filipino", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 8 Filipino Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8" & subject == "filipino", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8" & subject == "filipino", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 8 Integrated Science MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8" & subject == "is", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8" & subject == "is", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 8 Integrated Science Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8" & subject == "is", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8" & subject == "is", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 8 Mathematics MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8" & subject == "math", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8" & subject == "math", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 8 Mathematics Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8" & subject == "math", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8" & subject == "math", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 
 ### Grade 8 Social Science MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8" & subject == "ss", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "8" & subject == "ss", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 8 Social Science Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8" & subject == "math", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "8" & subject == "math", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Biology MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "bio", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "bio", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 
 ### Grade 10 Biology Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "bio", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "bio", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Chemistry MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "chem", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "chem", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Chemistry Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "chem", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "chem", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 English MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "english", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "english", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 English Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "english", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "english", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Filipino MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "filipino", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "filipino", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Filipino MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "filipino", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "filipino", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Mathematics MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "math", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "math", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Mathematics Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "math", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "math", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Physics MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "phys", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "phys", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Physics Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "phys", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "phys", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Social Science MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "ss", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "ss", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Social Science Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "ss", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "ss", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Statistics MCQ Test
 
 ```{r}
-re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "stat", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "mcq" & score > 0 & year == "2018" & grade == "10" & subject == "stat", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```
 
 ### Grade 10 Statistics Non-MCQ Test
 
 ```{r}
-re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "stat", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`)) %>% pander()
+re2015_18[test_type == "non-mcq" & score > 0 & year == "2018" & grade == "10" & subject == "stat", stats(pct), by = .(year, grade, campus)] %>% select(-1,-2) %>% arrange(desc(`% >= 50`), desc(mean)) %>% pander()
 ```

@@ -1,0 +1,367 @@
+---
+title: "Association of RE scores and a campus's involvement in the RE TWG"
+author: "Joseph S. Tabadero, Jr."
+date: "November 1, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.height = 7, fight.width = 12)
+```
+
+## Data
+
+```{r}
+source("re_data_structuring.R")
+re2015_18
+```
+
+```{r}
+twg <- fread("./Data/processed/twg.csv", na = "")
+colnames(twg) <- tolower(colnames(twg))
+twg <- twg %>%
+  mutate(subject = tolower(case_when(subject == "Integrated Science"~"is",
+                             subject == "Mathematics"~"math",
+                             subject == "Biology"~"bio",
+                             subject == "Chemistry"~"chem",
+                             subject == "Physics"~"phys",
+                             subject == "Social Science"~"ss",
+                             subject == "Statistics"~"stat",
+                             TRUE~subject))) %>%
+  mutate(grade = as.integer(str_extract_all(grade, "[0-9]+"))) %>%
+  mutate(campus = str_remove_all(campus, "PSHS-"))
+```
+
+```{r}
+retwg <- left_join(re2015_18, twg, by = c("campus", "year", "subject")) %>%
+  rename(grade = grade.x) %>% filter(assessment == "re")
+retwg <- retwg %>%
+  mutate(withtwg = !is.na(name)) %>%
+  mutate(pct = round(score / maxscore * 100, 2))
+```
+
+
+## System-wide
+
+```{r}
+retwg %>% filter(test_type == "mcq", year == "2017") %>%
+  ggplot(aes(twg, pct)) + geom_boxplot() +
+  facet_wrap(~grade + subject, ncol = 5)
+```
+
+
+## Grade 10 Physics
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "phys", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "phys", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "phys", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip()
+```
+
+
+
+## Grade 10 Statistics
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "stat", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "stat", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "phys", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip()
+```
+
+## Social Science
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "ss", grade == "10", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "ss", grade == "10", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "ss", grade == "10", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip()
+```
+
+## English
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "english", grade == "10", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "english", grade == "10", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "english", grade == "10", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+## Filipino
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "english", grade == "10", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "filipino", grade == "10", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "filipino", grade == "10", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip()
+```
+
+
+## Chemistry
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "chem", grade == "10", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "chem", grade == "10", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "chem", grade == "10", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip()
+```
+
+## Biology
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "bio", grade == "10", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "bio", grade == "10", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "bio", grade == "10", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip()
+```
+
+## Mathematics
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "math", grade == "10", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "math", grade == "10", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = twg)) + geom_boxplot() +
+  coord_flip()
+```
+
+
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "math", grade == "10", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip()
+```
+
