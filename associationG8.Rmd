@@ -1,5 +1,5 @@
 ---
-title: "Association of RE scores and a campus's involvement in the RE TWG: Grade 10"
+title: "Association of RE scores and a campus's involvement in the RE TWG: Grade 8"
 author: "Joseph S. Tabadero, Jr."
 date: "November 1, 2018"
 output:
@@ -11,6 +11,7 @@ output:
 knitr::opts_chunk$set(echo = F, warning =F, message = F, fig.height = 7, fight.width = 12, ggplot2::theme_set(ggplot2::theme_bw()), out.width = "55%", fig.align = "center")
 ```
 
+## Data
 
 ```{r}
 source("re_data_structuring.R")
@@ -50,385 +51,300 @@ retwg <- retwg %>%
   mutate(pct = round(score / maxscore * 100, 2))
 ```
 
-## Grade 10 System-wide MCQ Scoress
+## Grade 8 System-wide MCQ Scoress
 
 ### 2018
 
-```{r}
-retwg %>% filter(test_type == "mcq", grade == "10", year == "2018") %>%
+```{r, fig.height=4}
+retwg %>% filter(test_type == "mcq", grade == "8", year == "2018") %>%
   ggplot(aes(withtwg2, pct)) + geom_boxplot() +
-  facet_wrap(~grade + subject, ncol = 4)
+  facet_wrap(~grade + subject, ncol = 5)
 ```
 
 ### 2017
 
-```{r}
-retwg %>% filter(test_type == "mcq", grade == "10", year == "2017") %>%
+```{r, fig.height=4}
+retwg %>% filter(test_type == "mcq", grade == "8", year == "2017") %>%
   ggplot(aes(withtwg2, pct)) + geom_boxplot() +
-  facet_wrap(~grade + subject, ncol = 4)
+  facet_wrap(~grade + subject, ncol = 5)
 ```
 
 ### 2016
 
-```{r}
-retwg %>% filter(test_type == "mcq", grade == "10", year == "2016") %>%
+```{r, fig.height=4}
+retwg %>% filter(test_type == "mcq", grade == "8", year == "2016") %>%
   ggplot(aes(withtwg2, pct)) + geom_boxplot() +
-  facet_wrap(~grade + subject, ncol = 4)
+  facet_wrap(~grade + subject, ncol = 5)
 ```
 
-## Grade 10 Physics MCQ Scores
+### 2015
 
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "phys", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "phys", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "phys", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-
-## Grade 10 Statistics MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "stat", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "stat", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "phys", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-## Grade 10 Social Science MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "ss", grade == "10", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "ss", grade == "10", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "ss", grade == "10", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-## Grade 10 English MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "english", grade == "10", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "english", grade == "10", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "english", grade == "10", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-## Grade 10 Filipino MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "english", grade == "10", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "filipino", grade == "10", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "filipino", grade == "10", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-## Grade 10 Chemistry MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "chem", grade == "10", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "chem", grade == "10", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "chem", grade == "10", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-## Grade 10 Biology MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "bio", grade == "10", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "bio", grade == "10", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "bio", grade == "10", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-## Grade 10 Mathematics MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "math", grade == "10", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "math", grade == "10", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "mcq", subject == "math", grade == "10", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-
-
-
-
-
-## Grade 10 System-wide Non-MCQ Scoress
-
-### 2018
-
-```{r}
-retwg %>% filter(test_type == "non-mcq", grade == "10", year == "2018") %>%
+```{r, fig.height=4}
+retwg %>% filter(test_type == "mcq", grade == "8", year == "2015") %>%
   ggplot(aes(withtwg2, pct)) + geom_boxplot() +
-  facet_wrap(~grade + subject, ncol = 4)
+  facet_wrap(~grade + subject, ncol = 5)
+```
+
+
+
+
+
+
+
+
+
+## Grade 8 Social Science MCQ Scores
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "ss", grade == "8", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
 ```
 
 ### 2017
 
-```{r}
-retwg %>% filter(test_type == "non-mcq", grade == "10", year == "2017") %>%
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "ss", grade == "8", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "ss", grade == "8", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+### 2015
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "ss", grade == "8", year == "2015") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+## Grade 8 English MCQ Scores
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "english", grade == "8", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "english", grade == "8", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "english", grade == "8", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+### 2015
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "english", grade == "8", year == "2015") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+## Grade 8 Filipino MCQ Scores
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "english", grade == "8", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "filipino", grade == "8", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "filipino", grade == "8", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+### 2015
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "filipino", grade == "8", year == "2015") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+## Grade 8 Mathematics MCQ Scores
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "math", grade == "8", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip()  + scale_fill_brewer(palette="Greys")
+```
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "math", grade == "8", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "math", grade == "8", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+
+
+
+### 2015
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "mcq", subject == "math", grade == "8", year == "2015") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+
+
+## Grade 8 System-wide Non-MCQ Scoress
+
+### 2018
+
+```{r, fig.height=4}
+retwg %>% filter(test_type == "non-mcq", grade == "8", year == "2018") %>%
   ggplot(aes(withtwg2, pct)) + geom_boxplot() +
-  facet_wrap(~grade + subject, ncol = 4)
+  facet_wrap(~grade + subject, ncol = 5) + scale_fill_brewer(palette="Greys")
 ```
 
-### 2016
+### 2017
 
-```{r}
-retwg %>% filter(test_type == "non-mcq", grade == "10", year == "2016") %>%
+```{r, fig.height=4}
+retwg %>% filter(test_type == "non-mcq", grade == "8", year == "2017") %>%
   ggplot(aes(withtwg2, pct)) + geom_boxplot() +
-  facet_wrap(~grade + subject, ncol = 4)
+  facet_wrap(~grade + subject, ncol = 5)
 ```
 
-## Grade 10 Physics non-MCQ Scores
+### 2016
+
+```{r, fig.height=4}
+retwg %>% filter(test_type == "non-mcq", grade == "8", year == "2016") %>%
+  ggplot(aes(withtwg, pct)) + geom_boxplot() +
+  facet_wrap(~grade + subject, ncol = 5)
+```
+
+
+### 2016
+
+```{r, fig.height=4}
+retwg %>% filter(test_type == "non-mcq", grade == "8", year == "2015") %>%
+  ggplot(aes(withtwg, pct)) + geom_boxplot() +
+  facet_wrap(~grade + subject, ncol = 5)
+```
+
+
+
+
+
+## Grade 8 Social Science non-MCQ Scores
 
 ### 2018
 
 ```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "phys", year == "2018") %>%
+retwg %>% filter(test_type == "non-mcq", subject == "ss", grade == "8", year == "2018") %>%
   group_by(campus) %>%
   mutate(mean = mean(pct)) %>%
   ungroup() %>%
@@ -440,7 +356,109 @@ retwg %>% filter(test_type == "non-mcq", subject == "phys", year == "2018") %>%
 ### 2017
 
 ```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "phys", year == "2017") %>%
+retwg %>% filter(test_type == "non-mcq", subject == "ss", grade == "8", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "non-mcq", subject == "ss", grade == "8", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+### 2015
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "non-mcq", subject == "ss", grade == "8", year == "2015") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+## Grade 8 English non-MCQ Scores
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "non-mcq", subject == "english", grade == "8", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "non-mcq", subject == "english", grade == "8", year == "2017") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+### 2016
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "non-mcq", subject == "english", grade == "8", year == "2016") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+### 2015
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "non-mcq", subject == "english", grade == "8", year == "2015") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+## Grade 8 Filipino non-MCQ Scores
+
+### 2018
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "non-mcq", subject == "english", grade == "8", year == "2018") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
+
+
+### 2017
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "non-mcq", subject == "filipino", grade == "8", year == "2017") %>%
   group_by(campus) %>%
   mutate(mean = mean(pct)) %>%
   ungroup() %>%
@@ -453,23 +471,33 @@ retwg %>% filter(test_type == "non-mcq", subject == "phys", year == "2017") %>%
 ### 2016
 
 ```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "phys", year == "2016") %>%
+retwg %>% filter(test_type == "non-mcq", subject == "filipino", grade == "8", year == "2016") %>%
   group_by(campus) %>%
   mutate(mean = mean(pct)) %>%
   ungroup() %>%
   mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
   ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
+  coord_flip() +scale_fill_brewer(palette="Greys")
 ```
 
+### 2015
 
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "non-mcq", subject == "filipino", grade == "8", year == "2015") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() +scale_fill_brewer(palette="Greys")
+```
 
-## Grade 10 Statistics non-MCQ Scores
+## Grade 8 Mathematics non-MCQ Scores
 
 ### 2018
 
 ```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "stat", year == "2018") %>%
+retwg %>% filter(test_type == "non-mcq", subject == "math", grade == "8", year == "2018") %>%
   group_by(campus) %>%
   mutate(mean = mean(pct)) %>%
   ungroup() %>%
@@ -481,241 +509,7 @@ retwg %>% filter(test_type == "non-mcq", subject == "stat", year == "2018") %>%
 ### 2017
 
 ```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "stat", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "phys", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-## Grade 10 Social Science non-MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "ss", grade == "10", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "ss", grade == "10", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "ss", grade == "10", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-## Grade 10 English non-MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "english", grade == "10", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "english", grade == "10", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "english", grade == "10", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-## Grade 10 Filipino non-MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "english", grade == "10", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "filipino", grade == "10", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "filipino", grade == "10", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-## Grade 10 Chemistry non-MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "chem", grade == "10", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "chem", grade == "10", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "chem", grade == "10", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-## Grade 10 Biology non-MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "bio", grade == "10", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "bio", grade == "10", year == "2017") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-
-### 2016
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "bio", grade == "10", year == "2016") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-## Grade 10 Mathematics non-MCQ Scores
-
-### 2018
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "math", grade == "10", year == "2018") %>%
-  group_by(campus) %>%
-  mutate(mean = mean(pct)) %>%
-  ungroup() %>%
-  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
-  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
-  coord_flip() + scale_fill_brewer(palette="Greys")
-```
-
-### 2017
-
-```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "math", grade == "10", year == "2017") %>%
+retwg %>% filter(test_type == "non-mcq", subject == "math", grade == "8", year == "2017") %>%
   group_by(campus) %>%
   mutate(mean = mean(pct)) %>%
   ungroup() %>%
@@ -729,7 +523,7 @@ retwg %>% filter(test_type == "non-mcq", subject == "math", grade == "10", year 
 ### 2016
 
 ```{r, fig.height=3, fig.width=5}
-retwg %>% filter(test_type == "non-mcq", subject == "math", grade == "10", year == "2016") %>%
+retwg %>% filter(test_type == "non-mcq", subject == "math", grade == "8", year == "2016") %>%
   group_by(campus) %>%
   mutate(mean = mean(pct)) %>%
   ungroup() %>%
@@ -738,3 +532,15 @@ retwg %>% filter(test_type == "non-mcq", subject == "math", grade == "10", year 
   coord_flip() + scale_fill_brewer(palette="Greys")
 ```
 
+
+### 2015
+
+```{r, fig.height=3, fig.width=5}
+retwg %>% filter(test_type == "non-mcq", subject == "math", grade == "8", year == "2015") %>%
+  group_by(campus) %>%
+  mutate(mean = mean(pct)) %>%
+  ungroup() %>%
+  mutate(campus = fct_reorder(campus, mean, .desc = TRUE)) %>%
+  ggplot(aes(campus, pct, fill = withtwg)) + geom_boxplot() +
+  coord_flip() + scale_fill_brewer(palette="Greys")
+```
